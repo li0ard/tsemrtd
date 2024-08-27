@@ -1,0 +1,16 @@
+{
+  "name": "tsemrtd",
+  "module": "index.ts",
+  "version": "0.1.0",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node-tlv": "^1.5.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "node-tlv": "^1.5.14"
+  }
+}
