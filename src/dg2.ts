@@ -31,6 +31,7 @@ export class DG2 {
 
         let numberOfFacialImages = this.extractContent(data, offset, offset + 2);
         offset += 2;
+        if(numberOfFacialImages > 1) console.warn("[DG2] The record contains more than 1 image.")
         
         let facialRecordDataLength = this.extractContent(data, offset, offset + 4);
         offset += 4;
@@ -85,7 +86,9 @@ export class DG2 {
         let quality = this.extractContent(data, offset, offset + 2);
         offset += 2;
         
-        let imageData = data.subarray(offset)
+        let imageEnd = facialRecordDataLength - 20 - (nrFeaturePoints * 8) - 12
+        let imageData = data.subarray(offset, offset + imageEnd)
+
         return {
             sbh,
             lengthOfRecord,

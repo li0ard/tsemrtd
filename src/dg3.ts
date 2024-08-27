@@ -93,7 +93,8 @@ export class DG3 {
         let reserved2 = this.extractContent(data, offset, offset + 1)
         offset += 1
         
-        let imageData = data.subarray(offset)
+        let imageEnd = fingerprintRecordLength - 14
+        let imageData = data.subarray(offset, offset + imageEnd)
         return {
             sbh,
             lengthOfRecord,

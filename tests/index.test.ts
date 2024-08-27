@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
-import { COM, DG1, DG2, DG3, DG7 } from "../src"
+import { COM, DG1, DG2, DG3, DG5, DG7 } from "../src"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -35,6 +35,16 @@ test("DG3", async () => {
     ).toBe("5850eea06329d718c9bac497b5e5979cc8f5cc61b386df65e23af13cf1263671")
 })
 
-test.todo("DG7", async () => {
-    let data = DG7
+test("DG5", async () => {
+    let data = DG5.load(await getDGContent("EF_DG5.bin"))
+    expect(
+        new Bun.CryptoHasher("sha256").update(data[0]).digest().toString("hex")
+    ).toBe("45f7dcc68564616fef418cf5721ce5851c27af56fc8b762b19762b06275a1a2d")
+})
+
+test("DG7", async () => {
+    let data = DG7.load(await getDGContent("EF_DG7.bin"))
+    expect(
+        new Bun.CryptoHasher("sha256").update(data[0]).digest().toString("hex")
+    ).toBe("a3c5801a3692cf43495e391dc70d32e41526b4a5f700d5566c64688e897482e5")
 })
