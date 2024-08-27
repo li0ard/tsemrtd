@@ -1,9 +1,14 @@
 <p align="center">
     <a href="https://github.com/li0ard/tsemrtd/">
-        <img src="https://raw.githubusercontent.com/li0ard/tsemrtd/main/.github/logo.svg" alt="tsemrtd logo" title="tsemrtd" width="480" /><br/>
-    </a><br/>
+        <img src="https://raw.githubusercontent.com/li0ard/tsemrtd/main/.github/logo.svg" alt="tsemrtd logo" title="tsemrtd" width="120" /><br>
+    </a><br>
+    <b>tsemrtd</b><br>
     <b>simple library for MRTD Datagroups</b>
+    <br><br>
+    <img src="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml/badge.svg" />
+    <img src="https://img.shields.io/badge/-alpha-34D058" />
     <br>
+    <hr>
 </p>
 
 > [!WARNING]
