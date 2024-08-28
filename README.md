@@ -6,6 +6,7 @@
     <b>simple library for MRTD Datagroups</b>
     <br><br>
     <img src="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml/badge.svg" />
+    <img src="https://jsr.io/badges/@li0ard/tsemrtd" />
     <img src="https://img.shields.io/badge/-alpha-34D058" />
     <br>
     <hr>
@@ -17,7 +18,10 @@
 
 ## Installation
 
-`Soon`
+```bash
+bunx jsr add @li0ard/tsemrtd
+npx jsr add @li0ard/tsemrtd # for npm
+```
 
 ## Usage
 
