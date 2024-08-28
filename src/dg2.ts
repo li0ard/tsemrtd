@@ -1,5 +1,5 @@
 import TLV from "node-tlv"
-import { Enums, Interfaces } from ".";
+import { Enums, Interfaces } from "./index";
 
 /**
  * Class for working with DG2 (Face)

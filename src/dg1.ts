@@ -1,5 +1,5 @@
 import TLV from "node-tlv"
-import { Enums } from ".";
+import { Enums } from "./index";
 
 /**
  * Class for working with DG1 (MRZ)
