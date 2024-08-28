@@ -21,4 +21,4 @@ jobs:
         run: bun i
 
       - name: Publish package
-        run: bunx jsr publish
+        run: bunx --bun jsr publish
