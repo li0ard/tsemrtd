@@ -3,9 +3,25 @@
   "module": "index.ts",
   "version": "0.1.1",
   "type": "module",
+  "author": "li0ard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/li0ard/tsemrtd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/li0ard/tsemrtd/issues"
+  },
+  "homepage": "https://github.com/li0ard/tsemrtd#readme",
+  "description": "simple library for eMRTD. supports browsers, node, bun and more!",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc --project tsconfig.build.json",
+    "docs": "typedoc --options .config/typedoc/config.cjs"
+  },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/node-tlv": "^1.5.4"
+    "@types/node-tlv": "^1.5.4",
+    "typedoc": "^0.26.6"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

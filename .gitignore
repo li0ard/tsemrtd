@@ -181,3 +181,5 @@ dist
 *.wsq
 
 /index.ts
+
+docs/

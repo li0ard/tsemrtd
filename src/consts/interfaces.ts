@@ -18,12 +18,14 @@ interface AbstractBioTemplate {
     imageData: Buffer
 }
 
+/** Decoded EF.COM datagroup */
 export interface DecodedCom {
     ldsVersion: string,
     unicodeVersion: string,
     tags: Buffer
 }
 
+/** Decoded EF.DG2 datagroup */
 export interface DecodedImage extends AbstractBioTemplate {
     /** Number of facial images */
     numberOfFacialImages: number,
@@ -55,6 +57,7 @@ export interface DecodedImage extends AbstractBioTemplate {
     deviceType: number
 }
 
+/** Decoded EF.DG3 datagroup */
 export interface DecodedFingerprint extends AbstractBioTemplate {
     /** ID of the biometric scanner */
     captureDeviceId: number,
