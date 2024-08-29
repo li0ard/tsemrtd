@@ -6,6 +6,12 @@ import { Enums, Interfaces } from "./index";
  * @experimental
 */
 export class DG3 {
+    /**
+     * Extract int from buffer
+     * @param data Buffer
+     * @param start Offset
+     * @param end Offset+length
+     */
     private extractContent(data: Buffer, start: number, end: number): number {
         if (end - start == 1) {
             return data.subarray(start, end).readUInt8();
@@ -17,6 +23,10 @@ export class DG3 {
         }
         return parseInt(data.subarray(start,end).toString("hex"), 16)
     }
+    /**
+     * Read Biometric data block
+     * @param tlv 
+     */
     readBDB(tlv: TLV): Interfaces.DecodedFingerprint {
         if(parseInt(tlv.tag, 16) != 0x7f60) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x7f60`);
         let sbh = tlv.child[0]

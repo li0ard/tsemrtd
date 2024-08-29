@@ -7,7 +7,9 @@
     <br><br>
     <img src="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml/badge.svg" />
     <img src="https://jsr.io/badges/@li0ard/tsemrtd" />
-    <img src="https://img.shields.io/badge/-alpha-34D058" />
+    <br>
+    <img src="https://img.shields.io/github/license/li0ard/tsemrtd" />
+    <img src="https://img.shields.io/badge/-alpha-orange" />
     <br>
     <hr>
 </p>
@@ -26,7 +28,7 @@ npx jsr add @li0ard/tsemrtd # for npm
 ## Usage
 
 ```ts
-import { DG1 } from "tsemrtd"
+import { DG1 } from "@li0ard/tsemrtd"
 
 let file = await Bun.file("EF_DG1.bin").bytes()
 let data = DG1.load(Buffer.from(file))
@@ -43,6 +45,5 @@ console.log(data)
 - [x] DG3
 - [x] DG5
 - [x] DG7
-- [ ] DG11
-- [ ] DG12
-- [ ] DG16
+- [x] DG11
+- [x] DG12

@@ -5,6 +5,12 @@ import { Enums, Interfaces } from "./index";
  * Class for working with DG2 (Face)
 */
 export class DG2 {
+    /**
+     * Extract int from buffer
+     * @param data Buffer
+     * @param start Offset
+     * @param end Offset+length
+     */
     private extractContent(data: Buffer, start: number, end: number): number {
         if (end - start == 1) {
             return data.subarray(start, end).readInt8();
@@ -13,6 +19,10 @@ export class DG2 {
         }
         return data.subarray(start,end).readInt32BE()
     }
+    /**
+     * Read Biometric data block
+     * @param tlv 
+     */
     readBDB(tlv: TLV): Interfaces.DecodedImage {
         if(parseInt(tlv.tag, 16) != 0x7f60) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x7f60`);
         

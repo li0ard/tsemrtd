@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
-import { COM, DG1, DG2, DG3, DG5, DG7 } from "../src"
+import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12 } from "../src"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -47,4 +47,34 @@ test("DG7", async () => {
     expect(
         new Bun.CryptoHasher("sha256").update(data[0]).digest().toString("hex")
     ).toBe("a3c5801a3692cf43495e391dc70d32e41526b4a5f700d5566c64688e897482e5")
+})
+
+test("DG11", async () => {
+    let data = DG11.load(await getDGContent("EF_DG11.bin"))
+    expect(data.nameOfHolder).toBe("Doe John")
+    expect(data.otherNames[0]).toBe("William")
+    expect(data.personalNumber).toBe("123")
+    expect(data.fullDateOfBirth).toBe(19700101)
+    expect(data.placeOfBirth[0]).toBe("TEST")
+    expect(data.placeOfBirth[1]).toBe("TEST")
+    expect(data.permanentAddress[0]).toBe("TEST")
+    expect(data.permanentAddress[1]).toBe("TEST")
+    expect(data.telephone).toBe("123")
+    expect(data.profession).toBe("TEST")
+    expect(data.title).toBe("TEST")
+    expect(data.personalSummary).toBe("TEST")
+    expect(data.otherValidTDNumbers[0]).toBe("123")
+    expect(data.otherValidTDNumbers[1]).toBe("123")
+    expect(data.custodyInformation).toBe("TEST")
+})
+
+test("DG12", async () => {
+    let data = DG12.load(await getDGContent("EF_DG12.bin"))
+    expect(data.dateOfIssue).toBe(20240101)
+    expect(data.issuingAuthority).toBe("TEST")
+    expect(data.namesOfOtherPersons[0]).toBe("William")
+    expect(data.endorsements).toBe("TEST")
+    expect(data.taxAndExitReqs).toBe("TEST")
+    expect(data.dateOfPersonalization).toBe(20240101123059)
+    expect(data.personalizationNumber).toBe("123")
 })

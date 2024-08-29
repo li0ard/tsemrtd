@@ -88,3 +88,55 @@ export interface DecodedFingerprint extends AbstractBioTemplate {
     /** Name of finger/part of palm */
     fingerType: FingerType
 }
+
+/** Decoded EF.DG11 datagroup */
+export interface DecodedAdditionalPersonalData {
+    /** Full name of document holder */
+    nameOfHolder: string,
+    /** Other names of document holder */
+    otherNames: string[],
+    /** Personal number */
+    personalNumber: string,
+    /** Full date of birth (CCYYMMDD) */
+    fullDateOfBirth: number,
+    /** Place of birth */
+    placeOfBirth: string[],
+    /** Permanent residence address */
+    permanentAddress: string[],
+    /** Phone number */
+    telephone: string,
+    /** Profession */
+    profession: string,
+    /** Position */
+    title: string,
+    /** Personal resume */
+    personalSummary: string,
+    /** Proof of citizenship. Image described by ISO/IEC 10918 */
+    proofOfCitizenship: Buffer,
+    /** Numbers of other valid TDs */
+    otherValidTDNumbers: string[],
+    /**  Information about detention */
+    custodyInformation: string
+}
+
+/** Decoded EF.DG12 datagroup */
+export interface DecodedAdditionalDocumentData {
+    /** Full date of issue (YYYYMMDD) */
+    dateOfIssue: number,
+    /** Issuing authority */
+    issuingAuthority: string,
+    /** Name of another person, formatted according to the rules of Doc 9303 */
+    namesOfOtherPersons: string[],
+    /** Endorsements and observations */
+    endorsements: string,
+    /** Tax and exit requirements */
+    taxAndExitReqs: string,
+    /** Image of front of document. Image described by ISO/IEC 10918 */
+    imageOfFront: Buffer,
+    /** Image of rear of document. Image described by ISO/IEC 10918 */
+    imageOfRear: Buffer,
+    /** Date and time of document personalization (YYYYMMDDHHMMSS) */
+    dateOfPersonalization: number,
+    /** Serial number of personalization system */
+    personalizationNumber: string
+}
