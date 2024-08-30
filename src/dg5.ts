@@ -11,11 +11,11 @@ export class DG5 {
     }
     /**
      * Get displayed image
-     * @param data Data of EF.DG7 file
+     * @param data Data of EF.DG5 file
      */
     static load(data: string | Buffer): Buffer[] {
         let tlv = TLV.parse(data)
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG5) throw new Error(`Invalid DG7 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG5.toString(16)}`);
+        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG5) throw new Error(`Invalid DG5 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG5.toString(16)}`);
 
         let bict = tlv.child[0]
         if(parseInt(bict.tag, 16) != 0x02) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);

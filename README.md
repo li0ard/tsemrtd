@@ -47,3 +47,8 @@ console.log(data)
 - [x] DG7
 - [x] DG11
 - [x] DG12
+- [x] DG14
+- [x] DG15
+- [x] SOD
+
+Library doesn't support datagroups #6,8,9,10,13,16 because they are defined for optional information for each state.

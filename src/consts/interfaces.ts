@@ -20,8 +20,11 @@ interface AbstractBioTemplate {
 
 /** Decoded EF.COM datagroup */
 export interface DecodedCom {
+    /** Version of LDS structure */
     ldsVersion: string,
+    /** Version of Unicode table */
     unicodeVersion: string,
+    /** Datagroups defined in MRTD */
     tags: Buffer
 }
 

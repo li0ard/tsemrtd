@@ -40,7 +40,7 @@ export class DG12 {
             personalizationNumber: string = ""
 
         let tlv = TLV.parse(data)
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG12) throw new Error(`Invalid DG1 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG12.toString(16)}`);
+        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG12) throw new Error(`Invalid DG12 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG12.toString(16)}`);
         
         for(let i of tlv.child) {
             switch(parseInt(i.tag, 16)) {

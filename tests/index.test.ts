@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
-import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12 } from "../src"
+import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15 } from "../src"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -77,4 +77,21 @@ test("DG12", async () => {
     expect(data.taxAndExitReqs).toBe("TEST")
     expect(data.dateOfPersonalization).toBe(20240101123059)
     expect(data.personalizationNumber).toBe("123")
+})
+
+test.todo("DG14", async () => {
+    
+})
+
+test("DG15", async () => {
+    let data = DG15.load(await getDGContent("EF_DG15.bin"))
+    expect(data.algorithm.algorithm).toBe("1.2.840.113549.1.1.1")
+    expect(data.subjectPublicKey.byteLength).toBe(139)
+})
+
+test("SOD", async () => {
+    let data = SOD.load(await getDGContent("EF_SOD.bin"))
+    expect(data.version).toBe(0)
+    expect(data.algorithm.algorithm).toBe("1.3.14.3.2.26")
+    expect(data.hashes.length).toBe(4)
 })
