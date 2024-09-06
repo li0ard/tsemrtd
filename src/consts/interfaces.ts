@@ -1,6 +1,7 @@
 import type TLV from "node-tlv";
-import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, SourceType } from "./enums";
+import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums";
 
+/** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
     /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
     sbh: TLV,
@@ -57,7 +58,9 @@ export interface DecodedImage extends AbstractBioTemplate {
     /** Image source type */
     sourceType: SourceType,
     /** Image device type */
-    deviceType: number
+    deviceType: number,
+    /** Image Data Type */
+    imageType: ImageType,
 }
 
 /** Decoded EF.DG3 datagroup */
@@ -90,6 +93,32 @@ export interface DecodedFingerprint extends AbstractBioTemplate {
     nrOfRepresention: number,
     /** Name of finger/part of palm */
     fingerType: FingerType
+    /** Image Data Type */
+    imageType: FingerprintImageType,
+}
+
+/** Decoded EF.DG4 datagroup */
+export interface DecodedIris extends AbstractBioTemplate {
+    /** ID of Biometric scanner (by manufacturer) */
+    captureDeviceId: number,
+    /** Bit field of image properties. ISO/IEC 19794-6, table 2 */
+    imagePropertiesBits: number,
+    /** Iris diameter (in points) */
+    irisDiameter: number,
+    /** Bit depth of the grayscale scale */
+    depth: number,
+    /** Converting image to polar coordinate system */
+    imageTransformation: number,
+    /** ID of Biometric scanner (by issuing authority) */
+    deviceUniqueId: number,
+    /** Eye type */
+    biometricSubtype: IrisEyeSubtype,
+    /** Rotation angle of image */
+    rotationAngle: number,
+    /** Error of rotation angle */
+    rotationAngleUncertainty: number,
+    /** Image Data Type */
+    imageType: IrisImageFormat
 }
 
 /** Decoded EF.DG11 datagroup */

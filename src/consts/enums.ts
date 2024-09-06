@@ -119,9 +119,25 @@ export enum FingerType {
     LEFTLITTLE = 0x0A,
     RIGHT4FINGERS = 0x0D,
     LEFT4FINGER = 0x0E,
-    BOTHTHUMB = 0x0F
-    // to-do: add codes of names of palm areas
-    // table 6, section 8.3.3 iso/iec 19794-6-2006
+    BOTHTHUMB = 0x0F,
+
+    PALM_UNKNOWN = 20,
+    PALM_RIGHT_FULL = 21,
+    PALM_RIGHT_WRITER_S = 22,
+    PALM_LEFT_FULL = 23,
+    PALM_LEFT_WRITER_S = 24,
+    PALM_RIGHT_LOWER = 25,
+    PALM_RIGHT_UPPER = 26,
+    PALM_LEFT_LOWER = 27,
+    PALM_LEFT_UPPER = 28,
+    PALM_RIGHT_OTHER = 29,
+    PALM_LEFT_OTHER = 30,
+    PALM_RIGHT_INTERDIGITAL = 31,
+    PALM_RIGHT_THENAR = 32,
+    PALM_RIGHT_HYPOTHENAR = 33,
+    PALM_LEFT_INTERDIGITAL = 34,
+    PALM_LEFT_THENAR = 35,
+    PALM_LEFT_HYPOTHENAR = 36
 }
 
 /** ISO/IEC 19794-4. Type of fingerprint and palm image */
@@ -139,4 +155,23 @@ export enum FingerImageType {
 export enum ImageUnit {
     DPI = 0x01,
     DPCM = 0x02
+}
+
+/** ISO/IEC 19794-6. Image format */
+export enum IrisImageFormat {
+    RAWMONO = 0x02,
+    RAWRGB = 0x04,
+    JPEGMONO = 0x06,
+    JPEGRGB = 0x08,
+    JPEGLSMONO = 0x0A,
+    JPEGLSRGB = 0x0C,
+    JPEG2000MONO = 0x0E,
+    JPEG000RGB = 0x10
+}
+
+/** ISO/IEC 19794-6. Iris biometric subtype */
+export enum IrisEyeSubtype {
+    UNDEFINED = 0x00,
+    LEFT = 0x01,
+    RIGHT = 0x02
 }
