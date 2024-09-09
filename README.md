@@ -3,7 +3,7 @@
         <img src="https://raw.githubusercontent.com/li0ard/tsemrtd/main/.github/logo.svg" alt="tsemrtd logo" title="tsemrtd" width="120" /><br>
     </a><br>
     <b>tsemrtd</b><br>
-    <b>simple library for eMRTD Datagroups</b>
+    <b>simple library for eMRTD datagroups</b>
     <br><br>
     <a href="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml"><img src="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml/badge.svg" /></a>
     <a href="https://jsr.io/@li0ard/tsemrtd"><img src="https://jsr.io/badges/@li0ard/tsemrtd" /></a>
@@ -24,6 +24,7 @@
 - Type-Safe: Most of the APIs are strictly typed to help your workflow
 - Compliance: Fully complies with ICAO 9303 and ISO/IEC 19794 standards
 - Supports Bun, Node.js, Deno, Browsers, Cloudflare Workers
+- Supports CSCA masterlist's (ICAO PKD)
 
 ## Installation
 

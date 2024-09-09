@@ -183,3 +183,7 @@ dist
 /index.ts
 
 docs/
+
+# ICAO Masterlists
+
+*.ml
