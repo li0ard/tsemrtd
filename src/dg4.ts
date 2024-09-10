@@ -3,11 +3,13 @@ import { Enums, Interfaces } from "./index";
 
 /**
  * Class for working with DG4 (Iris)
+ * @hideconstructor
  * @experimental
 */
 export class DG4 {
     /**
      * Extract int from buffer
+     * @hidden
      * @param data Buffer
      * @param start Offset
      * @param end Offset+length

@@ -21,6 +21,7 @@ export class DG2 {
     }
     /**
      * Read Biometric data block
+     * @hidden
      * @param tlv 
      */
     readBDB(tlv: TLV): Interfaces.DecodedImage {

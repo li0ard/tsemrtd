@@ -4,6 +4,7 @@ import { CSCAMasterList } from "./asn1/pkd";
 
 /**
  * Class for working with CSCA master list
+ * @see [ICAO Masterlist](https://www.icao.int/Security/FAL/PKD/Pages/ICAO-Master-List.aspx)
 */
 export class PKD {
     /**

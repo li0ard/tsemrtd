@@ -1,9 +1,5 @@
-import { AsnProp, AsnType, AsnPropTypes, AsnTypeTypes, AsnArray } from "@peculiar/asn1-schema";
-import { Certificate } from "@peculiar/asn1-x509";
-
-/** Class for ASN1 schema of Certificates set */
-@AsnType({ type: AsnTypeTypes.Set, itemType: Certificate })
-export class Certificates extends AsnArray<Certificate> {}
+import { CertificateSet } from "@peculiar/asn1-cms";
+import { AsnProp, AsnPropTypes } from "@peculiar/asn1-schema";
 
 /** Class for ASN1 schema of CSCA master list. Described by ICAO 9303 p.12 section 9.2 */
 export class CSCAMasterList {
@@ -12,6 +8,6 @@ export class CSCAMasterList {
     version: number = 0;
 
     /** CSCA certificates */
-    @AsnProp({ type: Certificates })
-    certificates: Certificates = new Certificates()
+    @AsnProp({ type: CertificateSet })
+    certificates: CertificateSet = new CertificateSet()
 }

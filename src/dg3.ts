@@ -3,6 +3,7 @@ import { Enums, Interfaces } from "./index";
 
 /**
  * Class for working with DG3 (Fingerprint)
+ * @hideconstructor
  * @experimental
 */
 export class DG3 {
@@ -25,6 +26,7 @@ export class DG3 {
     }
     /**
      * Read Biometric data block
+     * @hidden
      * @param tlv 
      */
     readBDB(tlv: TLV): Interfaces.DecodedFingerprint {
