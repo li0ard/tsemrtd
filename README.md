@@ -29,8 +29,11 @@
 ## Installation
 
 ```bash
-bunx jsr add @li0ard/tsemrtd
-npx jsr add @li0ard/tsemrtd # for npm
+# from NPM
+npm i @li0ard/tsemrtd
+
+# from JSR
+bunx jsr add @li0ard/tsemrtd 
 ```
 
 ## Usage
