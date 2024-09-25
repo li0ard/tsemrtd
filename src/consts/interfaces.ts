@@ -1,5 +1,7 @@
 import type TLV from "node-tlv";
 import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums";
+import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
+import type { LDSObject } from "../asn1/sod";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
@@ -171,4 +173,14 @@ export interface DecodedAdditionalDocumentData {
     dateOfPersonalization: number,
     /** Serial number of personalization system */
     personalizationNumber: string
+}
+
+/** Decoded EF.SOD datagroup */
+export interface DecodedSecurtyObjectOfDocument {
+    /** Included certificates (ex. Document Signer Certificate) */
+    certificates: CertificateSet,
+    /** LDS object with datagroup's hashes */
+    ldsObject: LDSObject,
+    /** SOD signatures */
+    signatures: SignerInfos
 }

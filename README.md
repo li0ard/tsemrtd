@@ -4,12 +4,16 @@
     </a><br>
     <b>tsemrtd</b><br>
     <b>simple library for eMRTD datagroups</b>
+    <br>
+    <a href="https://tsemrtd.li0ard.rest">site</a>
+    &nbsp;•&nbsp;
+    <a href="https://tsemrtd.js.org">docs</a>
     <br><br>
     <a href="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml"><img src="https://github.com/li0ard/tsemrtd/actions/workflows/test.yml/badge.svg" /></a>
-    <a href="https://jsr.io/@li0ard/tsemrtd"><img src="https://jsr.io/badges/@li0ard/tsemrtd" /></a>
-    <br>
     <a href="https://github.com/li0ard/tsemrtd/blob/main/LICENSE"><img src="https://img.shields.io/github/license/li0ard/tsemrtd" /></a>
-    <img src="https://img.shields.io/badge/-alpha-orange" />
+    <br>
+    <a href="https://npmjs.com/package/@li0ard/tsemrtd"><img src="https://img.shields.io/npm/v/@li0ard/tsemrtd" /></a>
+    <a href="https://jsr.io/@li0ard/tsemrtd"><img src="https://jsr.io/badges/@li0ard/tsemrtd" /></a>
     <br>
     <hr>
 </p>
@@ -78,8 +82,9 @@ await Bun.write("image.jp2",data[0].imageData)
 
 Library doesn't support datagroups #6,8,9,10,13,16 because they are defined for optional information for each state.
 
-## Acknowledgements
+## Links
 
 - [jmrtd](https://jmrtd.org) - An Open Source Java Implementation of eMRTD
 - [ICAO 9303](https://www.icao.int/publications/pages/publication.aspx?docnum=9303) - Specifications to MRTD
 - ISO/IEC 19794(-4/-5/-6) - Specifications to Biometric Information Encoding (BioAPI)
+- BSI TR-03110 - Specifications to EAC/PACE

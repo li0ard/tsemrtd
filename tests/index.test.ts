@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
-import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4 } from "../src"
+import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4, DG14, Schemas } from "../src"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -79,8 +79,18 @@ test("DG12", async () => {
     expect(data.personalizationNumber).toBe("123")
 })
 
-test.todo("DG14", async () => {
+test("DG14", async () => {
+    let data = DG14.load(await getDGContent("EF_DG14.bin"))
+    let ta = data.filter(i => i instanceof Schemas.EAC.TerminalAuthenticationInfo)[0] as Schemas.EAC.TerminalAuthenticationInfo
+    let ca = data.filter(i => i instanceof Schemas.EAC.ChipAuthenticationInfo)[0] as Schemas.EAC.ChipAuthenticationInfo
+    let caPk = data.filter(i => i instanceof Schemas.EAC.ChipAuthenticationPublicKeyInfo)[0] as Schemas.EAC.ChipAuthenticationPublicKeyInfo
     
+    expect(ta.protocol).toBe("0.4.0.127.0.7.2.2.2")
+    expect(ta.version).toBe(1)
+    expect(ca.protocol).toBe("0.4.0.127.0.7.2.2.3.2.1")
+    expect(ca.version).toBe(1)
+    expect(caPk.protocol).toBe("0.4.0.127.0.7.2.2.1.2")
+    expect(caPk.chipAuthenticationPublicKey.algorithm.algorithm).toBe("1.2.840.10045.2.1")
 })
 
 test("DG15", async () => {
@@ -91,7 +101,9 @@ test("DG15", async () => {
 
 test("SOD", async () => {
     let data = SOD.load(await getDGContent("EF_SOD.bin"))
-    expect(data.version).toBe(0)
-    expect(data.algorithm.algorithm).toBe("1.3.14.3.2.26")
-    expect(data.hashes.length).toBe(4)
+    expect(data.certificates.length).toBe(1)
+    expect(data.signatures.length).toBe(1)
+    expect(data.ldsObject.version).toBe(0)
+    expect(data.ldsObject.algorithm.algorithm).toBe("1.3.14.3.2.26")
+    expect(data.ldsObject.hashes.length).toBe(4)
 })
