@@ -2,6 +2,7 @@ import type TLV from "node-tlv";
 import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums";
 import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
 import type { LDSObject } from "../asn1/sod";
+import type { SecurityInfos } from "../asn1/eac";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
@@ -182,5 +183,16 @@ export interface DecodedSecurtyObjectOfDocument {
     /** LDS object with datagroup's hashes */
     ldsObject: LDSObject,
     /** SOD signatures */
+    signatures: SignerInfos
+}
+
+
+/** Decoded EF.CardSecurity */
+export interface DecodedCardSecurity {
+    /** Included certificates (ex. Document Signer Certificate) */
+    certificates: CertificateSet,
+    /** Security infos (as in EF.DG14) */
+    securityInfos: SecurityInfos,
+    /** Signatures */
     signatures: SignerInfos
 }
