@@ -1,13 +1,13 @@
-import type TLV from "node-tlv";
 import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums";
 import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
 import type { LDSObject } from "../asn1/sod";
 import type { SecurityInfos } from "../asn1/eac";
+import type { SBH } from "../asn1";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
     /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
-    sbh: TLV,
+    sbh: SBH,
     /** Length of record */
     lengthOfRecord: number,
     /** Image Data Type */
@@ -183,16 +183,5 @@ export interface DecodedSecurtyObjectOfDocument {
     /** LDS object with datagroup's hashes */
     ldsObject: LDSObject,
     /** SOD signatures */
-    signatures: SignerInfos
-}
-
-
-/** Decoded EF.CardSecurity */
-export interface DecodedCardSecurity {
-    /** Included certificates (ex. Document Signer Certificate) */
-    certificates: CertificateSet,
-    /** Security infos (as in EF.DG14) */
-    securityInfos: SecurityInfos,
-    /** Signatures */
     signatures: SignerInfos
 }

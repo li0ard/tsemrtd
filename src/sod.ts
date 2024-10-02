@@ -1,8 +1,8 @@
 import TLV from "node-tlv"
-import { Enums, Interfaces } from "./index";
+import { Enums, type Interfaces } from "./index";
 import { AsnConvert, OctetString } from "@peculiar/asn1-schema";
 import { LDSObject } from "./asn1/sod";
-import { CertificateSet, ContentInfo, SignedData } from "@peculiar/asn1-cms";
+import { type CertificateSet, ContentInfo, SignedData } from "@peculiar/asn1-cms";
 
 /**
  * Class for working with SOD (Security object)

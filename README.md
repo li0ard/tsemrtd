@@ -86,5 +86,6 @@ Library doesn't support datagroups #6,8,9,10,13,16 because they are defined for 
 
 - [jmrtd](https://jmrtd.org) - An Open Source Java Implementation of eMRTD
 - [ICAO 9303](https://www.icao.int/publications/pages/publication.aspx?docnum=9303) - Specifications to MRTD
-- ISO/IEC 19794(-4/-5/-6) - Specifications to Biometric Information Encoding (BioAPI)
-- BSI TR-03110 - Specifications to EAC/PACE
+- [ISO/IEC 19794(-4/-5/-6)](https://www.iso.org/standard/38745.html) - Specifications to Biometric Information Encoding (BioAPI)
+- [NIST IR 6529A](https://csrc.nist.rip/publications/nistir/NISTIR6529A.pdf) - Specifications to CBEFF
+- [BSI TR-03110](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr03110/tr-03110.html) - Specifications to EAC/PACE

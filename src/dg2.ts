@@ -1,5 +1,6 @@
 import TLV from "node-tlv"
-import { Enums, Interfaces } from "./index";
+import { Enums, Interfaces, Schemas } from "./index";
+import { AsnConvert } from "@peculiar/asn1-schema";
 
 /**
  * Class for working with DG2 (Face)
@@ -27,7 +28,7 @@ export class DG2 {
     readBDB(tlv: TLV): Interfaces.DecodedImage {
         if(parseInt(tlv.tag, 16) != 0x7f60) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x7f60`);
         
-        let sbh = tlv.child[0]
+        let sbh = AsnConvert.parse(Buffer.from(tlv.child[0].getTLV(), "hex"), Schemas.SBH)
         let firstBlock = tlv.child[1]
         if(parseInt(firstBlock.tag, 16) != 0x5f2e && parseInt(firstBlock.tag, 16) != 0x7f2e) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x5f2e or 0x7f2e`);
         let data = firstBlock.bValue

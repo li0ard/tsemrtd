@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
-import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4, DG14, Schemas, CardSecurity } from "../src"
+import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4, DG14, Schemas } from "../src"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -23,6 +23,16 @@ test("DG2", async () => {
     expect(
         new Bun.CryptoHasher("sha256").update(data[0].imageData).digest().toString("hex")
     ).toBe("45f7dcc68564616fef418cf5721ce5851c27af56fc8b762b19762b06275a1a2d")
+})
+
+test("DG3", async () => {
+    let data = DG3.load(await getDGContent("EF_DG3.bin"))
+    expect(
+        new Bun.CryptoHasher("sha256").update(data[0].imageData).digest().toString("hex")
+    ).toBe("fc6508f3b7e2e4474361c4331a01046b3a4126e689ecf0e84723a1ea9aa0ae7f")
+    expect(
+        new Bun.CryptoHasher("sha256").update(data[1].imageData).digest().toString("hex")
+    ).toBe("5850eea06329d718c9bac497b5e5979cc8f5cc61b386df65e23af13cf1263671")
 })
 
 test("DG4", async () => {
@@ -106,9 +116,4 @@ test("SOD", async () => {
     expect(data.ldsObject.version).toBe(0)
     expect(data.ldsObject.algorithm.algorithm).toBe("1.3.14.3.2.26")
     expect(data.ldsObject.hashes.length).toBe(4)
-})
-
-test.todo("CardSecurity", async () => {
-    let data = CardSecurity.load(await getDGContent("EF_CardSecurity.bin"))
-    
 })

@@ -175,3 +175,28 @@ export enum IrisEyeSubtype {
     LEFT = 0x01,
     RIGHT = 0x02
 }
+
+/** NIST IR 6529A. Table 4 – Biometric Type */
+export enum CBEFFBiometricType {
+    UNSPECIFIED = 0x00,
+    MULTIPLE = 0x01,
+    FACIAL_FEATURES = 0x02,
+    VOICE = 0x04,
+    FINGERPRINT = 0x08,
+    IRIS = 0x10,
+    RETINA = 0x20,
+    HAND_GEOMETRY = 0x40,
+    SIGNATURE_DYNAMICS = 0x80,
+    KEYSTROKE_DYNAMICS = 0x100,
+    LIP_MOVEMENT = 0x200,
+    THERMAL_FACE_IMAGE = 0x400,
+    THERMAL_HAND_IMAGE = 0x800,
+    GAIT = 0x1000,
+    BODY_ODOR = 0x2000,
+    DNA = 0x4000,
+    EAR_SHAPE = 0x8000,
+    FINGER_GEOMETRY = 0x10000,
+    PALM_PRINT = 0x20000,
+    VEIN_PATTERN = 0x40000,
+    FOOT_PRINT = 0x80000
+}

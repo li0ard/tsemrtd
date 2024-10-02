@@ -1,4 +1,4 @@
-import { AsnConvert, OctetString } from "@peculiar/asn1-schema";
+import { AsnConvert, type OctetString } from "@peculiar/asn1-schema";
 import { ContentInfo, SignedData } from "@peculiar/asn1-cms";
 import { CSCAMasterList } from "./asn1/pkd";
 
