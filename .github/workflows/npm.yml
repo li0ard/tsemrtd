@@ -28,7 +28,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --access public
+          npm publish --provenance --access public
       - name: Cleanup
         run: |
           rm -f .npmrc
