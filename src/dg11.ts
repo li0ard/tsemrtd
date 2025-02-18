@@ -69,7 +69,7 @@ export class DG11 {
                     }
                     break;
                 case FULL_DATE_OF_BIRTH_TAG:
-                    fullDateOfBirth = parseInt(i.bValue.toString("hex"))
+                    fullDateOfBirth = parseInt(i.bValue.toString("utf-8"))
                     break;
                 case PLACE_OF_BIRTH_TAG:
                     placeOfBirth = i.bValue.toString("utf-8").split("<")
