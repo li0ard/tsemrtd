@@ -40,7 +40,7 @@ jobs:
   # Deployment job
   deploy:
     # only run on releases and dont run on forks
-    if: github.repository == 'li0ard/crapto1_ts' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.repository == 'li0ard/tsemrtd' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
