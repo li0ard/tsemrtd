@@ -1,6 +1,7 @@
 import { test, expect } from "bun:test"
 import { join } from "path"
 import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4, DG14, Schemas } from "../src"
+import { Utils } from "../src/"
 
 const getDGContent = async (name: string): Promise<Buffer> => {
     return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
@@ -10,7 +11,7 @@ test("COM", async () => {
     let data = COM.load(await getDGContent("EF_COM.bin"))
     expect(data.ldsVersion).toBe("0107")
     expect(data.unicodeVersion).toBe("040000")
-    expect(data.tags.toString("hex")).toBe("6175636e")
+    expect(Utils.bytesToHex(data.tags)).toBe("6175636e")
 })
 
 test("DG1", async () => {

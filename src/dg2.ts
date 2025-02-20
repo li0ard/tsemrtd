@@ -1,4 +1,4 @@
-import TLV from "node-tlv"
+import { TLV } from "@li0ard/tinytlv"
 import { Enums, Interfaces, Schemas } from "./index";
 import { AsnConvert } from "@peculiar/asn1-schema";
 
@@ -28,10 +28,10 @@ export class DG2 {
     readBDB(tlv: TLV): Interfaces.DecodedImage {
         if(parseInt(tlv.tag, 16) != 0x7f60) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x7f60`);
         
-        let sbh = AsnConvert.parse(Buffer.from(tlv.child[0].getTLV(), "hex"), Schemas.SBH)
-        let firstBlock = tlv.child[1]
+        let sbh = AsnConvert.parse(Buffer.from(tlv.childs[0].toString(), "hex"), Schemas.SBH)
+        let firstBlock = tlv.childs[1]
         if(parseInt(firstBlock.tag, 16) != 0x5f2e && parseInt(firstBlock.tag, 16) != 0x7f2e) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x5f2e or 0x7f2e`);
-        let data = firstBlock.bValue
+        let data = Buffer.from(firstBlock.byteValue)
         if(data.subarray(0,4).readInt32BE() != 0x46414300) throw new Error("Biometric data block is invalid");
         let offset = 4
 
@@ -133,16 +133,16 @@ export class DG2 {
         let tlv = TLV.parse(data)
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG2) throw new Error(`Invalid DG2 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG2.toString(16)}`);
 
-        let bigt = tlv.child[0]
+        let bigt = tlv.childs[0]
         if(parseInt(bigt.tag, 16) != 0x7f61) throw new Error(`Invalid object tag "0x${bigt.tag}", expected 0x7f61`);
         
-        let bict = bigt.child[0]
+        let bict = bigt.childs[0]
         if(parseInt(bict.tag, 16) != 0x02) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);
 
-        let bitCount = parseInt(bigt.child[0].value, 16)
+        let bitCount = parseInt(bigt.childs[0].value, 16)
         let results = []
         for(let i = 0; i < bitCount; i++) {
-            results.push(new DG2().readBDB(bigt.child[i + 1]))
+            results.push(new DG2().readBDB(bigt.childs[i + 1]))
         }
         return results
     }

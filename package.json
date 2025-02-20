@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/node-tlv": "^1.5.4",
     "typedoc": "^0.26.6"
   },
   "peerDependencies": {
@@ -32,9 +31,9 @@
     "access": "public"
   },
   "dependencies": {
+    "@li0ard/tinytlv": "^0.1.0",
     "@peculiar/asn1-cms": "^2.3.13",
     "@peculiar/asn1-schema": "^2.3.13",
-    "@peculiar/asn1-x509": "^2.3.13",
-    "node-tlv": "^1.5.14"
+    "@peculiar/asn1-x509": "^2.3.13"
   }
 }

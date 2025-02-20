@@ -19,7 +19,7 @@ interface AbstractBioTemplate {
     /** Image quality */
     quality: number,
     /** Raw image data */
-    imageData: Buffer
+    imageData: Uint8Array
 }
 
 /** Decoded EF.COM datagroup */
@@ -29,7 +29,7 @@ export interface DecodedCom {
     /** Version of Unicode table */
     unicodeVersion: string,
     /** Datagroups defined in MRTD */
-    tags: Buffer
+    tags: Uint8Array
 }
 
 /** Decoded EF.DG2 datagroup */
@@ -147,7 +147,7 @@ export interface DecodedAdditionalPersonalData {
     /** Personal resume */
     personalSummary: string,
     /** Proof of citizenship. Image described by ISO/IEC 10918 */
-    proofOfCitizenship: Buffer,
+    proofOfCitizenship: Uint8Array,
     /** Numbers of other valid TDs */
     otherValidTDNumbers: string[],
     /**  Information about detention */
@@ -167,9 +167,9 @@ export interface DecodedAdditionalDocumentData {
     /** Tax and exit requirements */
     taxAndExitReqs: string,
     /** Image of front of document. Image described by ISO/IEC 10918 */
-    imageOfFront: Buffer,
+    imageOfFront: Uint8Array,
     /** Image of rear of document. Image described by ISO/IEC 10918 */
-    imageOfRear: Buffer,
+    imageOfRear: Uint8Array,
     /** Date and time of document personalization (YYYYMMDDHHMMSS) */
     dateOfPersonalization: number,
     /** Serial number of personalization system */

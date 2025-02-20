@@ -1,4 +1,4 @@
-import TLV from "node-tlv"
+import { TLV } from "@li0ard/tinytlv"
 import { Enums, Oids } from "./index";
 import { AsnConvert } from "@peculiar/asn1-schema";
 import { ChipAuthenticationDomainParameterInfo, ChipAuthenticationInfo, ChipAuthenticationPublicKeyInfo, SecurityInfos, TerminalAuthenticationInfo } from "./asn1/eac";
@@ -15,7 +15,7 @@ export class DG14 {
         let tlv = TLV.parse(data)
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG14) throw new Error(`Invalid DG14 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG14.toString(16)}`); 
 
-        let infos = AsnConvert.parse(tlv.bValue, SecurityInfos)
+        let infos = AsnConvert.parse(tlv.byteValue, SecurityInfos)
         let set = new SecurityInfos()
         for(let i of infos) {
             if(i.protocol == Oids.TerminalAuthentication) {
