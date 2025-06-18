@@ -45,7 +45,7 @@ export const hexToBytes = (hex: string): Uint8Array => {
 /**
  * Convert byte array to ASCII string.
  */
-export const bytesToAscii = (bytes: Uint8Array) => {
+export const bytesToAscii = (bytes: Uint8Array): string => {
     let string = '';
     for(let i of bytes) {
         string += String.fromCharCode(i);
