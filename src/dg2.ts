@@ -7,18 +7,18 @@ import { AsnConvert } from "@peculiar/asn1-schema";
 */
 export class DG2 {
     /**
-     * Extract int from buffer
-     * @param data Buffer
+     * Extract int from Uint8Array
+     * @param data Uint8Array
      * @param start Offset
      * @param end Offset+length
      */
-    private extractContent(data: Buffer, start: number, end: number): number {
-        if (end - start == 1) {
-            return data.subarray(start, end).readInt8();
+    private extractContent(data: Uint8Array, start: number, end: number): number {
+        if (end - start === 1) {
+            return data[start];
         } else if (end - start < 4) {
-            return data.subarray(start, end).readInt16BE();
+            return (data[start] << 8) | data[start + 1];
         }
-        return data.subarray(start,end).readInt32BE()
+        return (data[start] << 24) | (data[start + 1] << 16) | (data[start + 2] << 8) | data[start + 3];
     }
     /**
      * Read Biometric data block
@@ -28,13 +28,13 @@ export class DG2 {
     readBDB(tlv: TLV): Interfaces.DecodedImage {
         if(parseInt(tlv.tag, 16) != 0x7f60) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x7f60`);
         
-        let sbh = AsnConvert.parse(Buffer.from(tlv.childs[0].toString(), "hex"), Schemas.SBH)
+        let sbh = AsnConvert.parse(tlv.childs[0].toBytes(), Schemas.SBH)
         let firstBlock = tlv.childs[1]
         if(parseInt(firstBlock.tag, 16) != 0x5f2e && parseInt(firstBlock.tag, 16) != 0x7f2e) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x5f2e or 0x7f2e`);
-        let data = Buffer.from(firstBlock.byteValue)
-        if(data.subarray(0,4).readInt32BE() != 0x46414300) throw new Error("Biometric data block is invalid");
+        let data = firstBlock.byteValue
+        if(this.extractContent(data, 0, 4) != 0x46414300) throw new Error("Biometric data block is invalid");
         let offset = 4
-
+        
         if(this.extractContent(data, offset, offset+4) != 0x30313000) throw new Error("Version of Biometric data is not valid");
         offset += 4;
 
@@ -129,7 +129,7 @@ export class DG2 {
      * Get image of face and meta info
      * @param data Data of EF.DG2 file
      */
-    static load(data: string | Buffer): Interfaces.DecodedImage[] {
+    static load(data: string | Uint8Array): Interfaces.DecodedImage[] {
         let tlv = TLV.parse(data)
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG2) throw new Error(`Invalid DG2 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG2.toString(16)}`);
 

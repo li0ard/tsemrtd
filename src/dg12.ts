@@ -1,5 +1,5 @@
 import { TLV } from "@li0ard/tinytlv"
-import { Enums, Interfaces } from "./index";
+import { Enums, Interfaces, Utils } from "./index";
 
 /**
  * Class for working with DG12 (Additional document data)
@@ -9,7 +9,7 @@ export class DG12 {
      * Get additional document data
      * @param data Data of EF.DG12 file
      */
-    static load(data: string | Buffer): Interfaces.DecodedAdditionalDocumentData {
+    static load(data: string | Uint8Array): Interfaces.DecodedAdditionalDocumentData {
         const ISSUING_AUTHORITY_TAG = 0x5F19;
 
         // yyyymmdd
@@ -45,23 +45,23 @@ export class DG12 {
         for(let i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case ISSUING_AUTHORITY_TAG:
-                    issuingAuthority = Buffer.from(i.byteValue).toString("utf-8")
+                    issuingAuthority = Utils.bytesToAscii(i.byteValue)
                     break;
                 case DATE_OF_ISSUE_TAG:
-                    dateOfIssue = parseInt(Buffer.from(i.byteValue).toString("hex"))
+                    dateOfIssue = parseInt(Utils.bytesToHex(i.byteValue))
                     break;
                 case NAME_OF_OTHER_PERSON_ARRAY_TAG:
                     for(let j of i.childs) {
                         if(parseInt(j.tag, 16) == NAME_OF_OTHER_PERSON_TAG) {
-                            namesOfOtherPersons.push(Buffer.from(j.byteValue).toString("utf-8"))
+                            namesOfOtherPersons.push(Utils.bytesToAscii(j.byteValue))
                         }
                     }
                     break;
                 case ENDORSEMENTS_AND_OBSERVATIONS_TAG:
-                    endorsements = Buffer.from(i.byteValue).toString("utf-8")
+                    endorsements = Utils.bytesToAscii(i.byteValue)
                     break;
                 case TAX_OR_EXIT_REQUIREMENTS_TAG:
-                    taxAndExitReqs = Buffer.from(i.byteValue).toString("utf-8")
+                    taxAndExitReqs = Utils.bytesToAscii(i.byteValue)
                     break;
                 case IMAGE_OF_FRONT_TAG:
                     imageOfFront = i.byteValue;
@@ -70,10 +70,10 @@ export class DG12 {
                     imageOfRear = i.byteValue;
                     break;
                 case DATE_AND_TIME_OF_PERSONALIZATION:
-                    dateOfPersonalization = parseInt(Buffer.from(i.byteValue).toString("hex"))
+                    dateOfPersonalization = parseInt(Utils.bytesToHex(i.byteValue))
                     break;
                 case PERSONALIZATION_SYSTEM_SERIAL_NUMBER_TAG:
-                    personalizationNumber = Buffer.from(i.byteValue).toString("utf-8")
+                    personalizationNumber = Utils.bytesToAscii(i.byteValue)
                     break;
             }
         }

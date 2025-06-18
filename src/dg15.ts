@@ -11,7 +11,7 @@ export class DG15 {
      * Get active authentication public key
      * @param data Data of EF.DG15 file
      */
-    static load(data: string | Buffer): SubjectPublicKeyInfo {
+    static load(data: string | Uint8Array): SubjectPublicKeyInfo {
         let tlv = TLV.parse(data)
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG15) throw new Error(`Invalid DG15 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG15.toString(16)}`);
 

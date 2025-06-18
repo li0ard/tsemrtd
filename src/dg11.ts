@@ -1,5 +1,5 @@
 import { TLV } from "@li0ard/tinytlv"
-import { Enums, Interfaces } from "./index";
+import { Enums, Interfaces, Utils } from "./index";
 
 /**
  * Class for working with DG11 (Additional personal data)
@@ -9,7 +9,7 @@ export class DG11 {
      * Get additional personal data
      * @param data Data of EF.DG11 file
      */
-    static load(data: string | Buffer): Interfaces.DecodedAdditionalPersonalData {
+    static load(data: string | Uint8Array): Interfaces.DecodedAdditionalPersonalData {
         const FULL_NAME_TAG = 0x5F0E;
         const OTHER_NAME_TAG = 0x5F0F;
         const OTHER_NAME_ARRAY_TAG = 0xA0;
@@ -56,47 +56,47 @@ export class DG11 {
         for(let i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case FULL_NAME_TAG:
-                    nameOfHolder = Buffer.from(i.byteValue).toString("utf-8")
+                    nameOfHolder = Utils.bytesToAscii(i.byteValue)
                     break;
                 case PERSONAL_NUMBER_TAG:
-                    personalNumber = Buffer.from(i.byteValue).toString("utf-8")
+                    personalNumber = Utils.bytesToAscii(i.byteValue)
                     break;
                 case OTHER_NAME_ARRAY_TAG:
                     for(let j of i.childs) {
                         if(parseInt(j.tag, 16) == OTHER_NAME_TAG) {
-                            otherNames.push(Buffer.from(j.byteValue).toString("utf-8"))
+                            otherNames.push(Utils.bytesToAscii(j.byteValue))
                         }
                     }
                     break;
                 case FULL_DATE_OF_BIRTH_TAG:
-                    fullDateOfBirth = parseInt(Buffer.from(i.byteValue).toString("utf-8"))
+                    fullDateOfBirth = parseInt(Utils.bytesToAscii(i.byteValue))
                     break;
                 case PLACE_OF_BIRTH_TAG:
-                    placeOfBirth = Buffer.from(i.byteValue).toString("utf-8").split("<")
+                    placeOfBirth = Utils.bytesToAscii(i.byteValue).split("<")
                     break;
                 case PERMANENT_ADDRESS_TAG:
-                    permanentAddress = Buffer.from(i.byteValue).toString("utf-8").split("<")
+                    permanentAddress = Utils.bytesToAscii(i.byteValue).split("<")
                     break;
                 case TELEPHONE_TAG:
-                    telephone = Buffer.from(i.byteValue).toString("utf-8")
+                    telephone = Utils.bytesToAscii(i.byteValue)
                     break
                 case PROFESSION_TAG:
-                    profession = Buffer.from(i.byteValue).toString("utf-8")
+                    profession = Utils.bytesToAscii(i.byteValue)
                     break;
                 case TITLE_TAG:
-                    title = Buffer.from(i.byteValue).toString("utf-8")
+                    title = Utils.bytesToAscii(i.byteValue)
                     break;
                 case PERSONAL_SUMMARY_TAG:
-                    personalSummary = Buffer.from(i.byteValue).toString("utf-8")
+                    personalSummary = Utils.bytesToAscii(i.byteValue)
                     break;
                 case PROOF_OF_CITIZENSHIP_TAG:
                     proofOfCitizenship = i.byteValue
                     break;
                 case OTHER_VALID_TD_NUMBERS_TAG:
-                    otherValidTDNumbers = Buffer.from(i.byteValue).toString("utf-8").split("<")
+                    otherValidTDNumbers = Utils.bytesToAscii(i.byteValue).split("<")
                     break;
                 case CUSTODY_INFORMATION_TAG:
-                    custodyInformation = Buffer.from(i.byteValue).toString("utf-8")
+                    custodyInformation = Utils.bytesToAscii(i.byteValue)
                     break;
             }
         }

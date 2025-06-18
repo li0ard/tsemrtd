@@ -3,8 +3,8 @@ import { join } from "path"
 import { COM, DG1, DG2, DG3, DG5, DG7, DG11, DG12, SOD, DG15, DG4, DG14, Schemas } from "../src"
 import { Utils } from "../src/"
 
-const getDGContent = async (name: string): Promise<Buffer> => {
-    return Buffer.from(await Bun.file(join(import.meta.dir, "dgs", name)).bytes())
+const getDGContent = async (name: string): Promise<Uint8Array> => {
+    return await Bun.file(join(import.meta.dir, "dgs", name)).bytes()
 }
 
 test("COM", async () => {

@@ -1,6 +1,7 @@
 import { AsnConvert, type OctetString } from "@peculiar/asn1-schema";
 import { ContentInfo, SignedData } from "@peculiar/asn1-cms";
 import { CSCAMasterList } from "./asn1/pkd";
+import { Utils } from "./index";
 
 /**
  * Class for working with CSCA master list
@@ -11,8 +12,8 @@ export class PKD {
      * Get CSCA certificates from master list
      * @param data Data of ICAO master list file (.ml)
      */
-    static load(data: string | Buffer): CSCAMasterList {
-        if(typeof data == "string") data = Buffer.from(data, "hex");
+    static load(data: string | Uint8Array): CSCAMasterList {
+        if(typeof data == "string") data = Utils.hexToBytes(data);
 
         let contentInfo = AsnConvert.parse(data, ContentInfo)
         let signedData = AsnConvert.parse(contentInfo.content, SignedData)

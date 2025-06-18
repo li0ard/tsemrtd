@@ -47,7 +47,7 @@ bunx jsr add @li0ard/tsemrtd
 import { DG1 } from "@li0ard/tsemrtd"
 
 let file = await Bun.file("EF_DG1.bin").bytes()
-let data = DG1.load(Buffer.from(file))
+let data = DG1.load(file)
 console.log(data)
 // P<D<<MUSTERMANN<<ERIKA<<<<<<<<<<<<<<<<<<<<<<
 // C11T002JM4D<<9608122F1310317<<<<<<<<<<<<<<<6
@@ -58,7 +58,7 @@ console.log(data)
 import { DG2 } from "@li0ard/tsemrtd"
 
 let file = await Bun.file("EF_DG2.bin").bytes()
-let data = DG2.load(Buffer.from(file))
+let data = DG2.load(file)
 
 await Bun.write("image.jp2",data[0].imageData)
 ```
