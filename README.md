@@ -18,10 +18,6 @@
     <hr>
 </p>
 
-> [!WARNING]
-> tsemrtd is currently in alpha stage: the lib is not very stable yet, and there may be a lot of bugs
-> feel free to try it out, though, any feedback is appreciated!
-
 ## Features
 
 - Simple: Hides decoding process and provides simple and modern API
