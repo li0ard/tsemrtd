@@ -1,4 +1,4 @@
-export * as EAC from "./eac"
-export * as PKD from "./pkd"
-export * as SOD from "./sod"
-export { default as SBH } from "./sbh"
+export * as EAC from "./eac.js";
+export * as PKD from "./pkd.js";
+export * as SOD from "./sod.js";
+export { default as SBH } from "./sbh.js";

@@ -1,5 +1,5 @@
-import { TLV } from "@li0ard/tinytlv"
-import { Enums, Interfaces, Utils } from "./index";
+import { TLV } from "@li0ard/tinytlv";
+import { Enums, Interfaces, Utils } from "./index.js";
 
 /**
  * Class for working with COM (Manifest)
@@ -10,7 +10,7 @@ export class COM {
      * @param data Data of EF.COM file
      */
     static load(data: string | Uint8Array): Interfaces.DecodedCom {
-        let tlv = TLV.parse(data)
+        const tlv = TLV.parse(data);
         if(parseInt(tlv.tag, 16) != Enums.TAGS.COM) throw new Error(`Invalid COM tag "0x${tlv.tag}", expected 0x${Enums.TAGS.COM.toString(16)}`);
         return {
             ldsVersion: Utils.bytesToAscii(tlv.childs[0].byteValue),

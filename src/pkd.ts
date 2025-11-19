@@ -1,11 +1,11 @@
-import { AsnConvert, type OctetString } from "@peculiar/asn1-schema";
+import { AsnConvert } from "@peculiar/asn1-schema";
 import { ContentInfo, SignedData } from "@peculiar/asn1-cms";
-import { CSCAMasterList } from "./asn1/pkd";
-import { Utils } from "./index";
+import { CSCAMasterList } from "./asn1/pkd.js";
+import { Utils } from "./index.js";
 
 /**
  * Class for working with CSCA master list
- * @see [ICAO Masterlist](https://www.icao.int/Security/FAL/PKD/Pages/ICAO-Master-List.aspx)
+ * @see [ICAO Masterlist](https://www.icao.int/icao-pkd/icao-master-list)
 */
 export class PKD {
     /**
@@ -15,8 +15,8 @@ export class PKD {
     static load(data: string | Uint8Array): CSCAMasterList {
         if(typeof data == "string") data = Utils.hexToBytes(data);
 
-        let contentInfo = AsnConvert.parse(data, ContentInfo)
-        let signedData = AsnConvert.parse(contentInfo.content, SignedData)
-        return AsnConvert.parse(signedData.encapContentInfo.eContent?.single as OctetString, CSCAMasterList)
+        const contentInfo = AsnConvert.parse(data, ContentInfo);
+        const signedData = AsnConvert.parse(contentInfo.content, SignedData);
+        return AsnConvert.parse(signedData.encapContentInfo.eContent!.single!, CSCAMasterList);
     }
 }

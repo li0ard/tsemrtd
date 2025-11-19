@@ -1,5 +1,5 @@
-import { TLV } from "@li0ard/tinytlv"
-import { Enums } from "./index";
+import { TLV } from "@li0ard/tinytlv";
+import { Enums } from "./index.js";
 import { SubjectPublicKeyInfo } from "@peculiar/asn1-x509";
 import { AsnConvert } from "@peculiar/asn1-schema";
 
@@ -12,9 +12,9 @@ export class DG15 {
      * @param data Data of EF.DG15 file
      */
     static load(data: string | Uint8Array): SubjectPublicKeyInfo {
-        let tlv = TLV.parse(data)
+        const tlv = TLV.parse(data);
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG15) throw new Error(`Invalid DG15 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG15.toString(16)}`);
 
-        return AsnConvert.parse(tlv.byteValue, SubjectPublicKeyInfo)
+        return AsnConvert.parse(tlv.byteValue, SubjectPublicKeyInfo);
     }
 }

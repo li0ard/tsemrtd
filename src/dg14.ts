@@ -1,7 +1,7 @@
-import { TLV } from "@li0ard/tinytlv"
-import { Enums, Oids } from "./index";
+import { TLV } from "@li0ard/tinytlv";
+import { Enums, Oids } from "./index.js";
 import { AsnConvert } from "@peculiar/asn1-schema";
-import { ChipAuthenticationDomainParameterInfo, ChipAuthenticationInfo, ChipAuthenticationPublicKeyInfo, SecurityInfos, TerminalAuthenticationInfo } from "./asn1/eac";
+import { ChipAuthenticationDomainParameterInfo, ChipAuthenticationInfo, ChipAuthenticationPublicKeyInfo, SecurityInfos, TerminalAuthenticationInfo } from "./asn1/eac.js";
 
 /**
  * Class for working with DG14 (EAC/PACE authentication info)
@@ -12,29 +12,27 @@ export class DG14 {
      * @param data Data of EF.DG14 file
      */
     static load(data: string | Uint8Array): SecurityInfos {
-        let tlv = TLV.parse(data)
+        const tlv = TLV.parse(data);
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG14) throw new Error(`Invalid DG14 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG14.toString(16)}`); 
 
-        let infos = AsnConvert.parse(tlv.byteValue, SecurityInfos)
-        let set = new SecurityInfos()
+        const infos = AsnConvert.parse(tlv.byteValue, SecurityInfos);
+        const set = new SecurityInfos();
         for(let i of infos) {
             if(i.protocol == Oids.TerminalAuthentication) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo));
             }
             else if((Object.values(Oids.ChipAuthInfo) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo));
             }
             else if((Object.values(Oids.ChipAuthPublicKey) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo));
             }
             else if((Object.values(Oids.ChipAuthDomainParameters) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo));
             }
-            else {
-                set.push(i)
-            }
+            else set.push(i);
         }
 
-        return set
+        return set;
     }
 }

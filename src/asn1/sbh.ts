@@ -1,5 +1,5 @@
 import { AsnProp, AsnPropTypes } from "@peculiar/asn1-schema";
-import type { Enums } from "../index";
+import type { Enums } from "../index.js";
 
 /**
  * Standard Biometric Header (SBH)

@@ -1,8 +1,7 @@
-import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums";
+import type { EyeColor, FaceType, FingerImageType, FingerType, FingerprintImageType, Gender, HairColor, ImageColorSpace, ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType } from "./enums.js";
 import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
-import type { LDSObject } from "../asn1/sod";
-import type { SecurityInfos } from "../asn1/eac";
-import type { SBH } from "../asn1";
+import type { LDSObject } from "../asn1/sod.js";
+import type { SBH } from "../asn1/index.js";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
