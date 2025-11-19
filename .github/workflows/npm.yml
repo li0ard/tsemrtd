@@ -23,5 +23,11 @@ jobs:
         run: bun run build
       
       - name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish --access public
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish --provenance --access public
+      - name: Cleanup
+        run: |
+          rm -f .npmrc
