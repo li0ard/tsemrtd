@@ -48,3 +48,9 @@ export const bytesToAscii = (bytes: Uint8Array): string => {
     for(let i of bytes) string += String.fromCharCode(i);
     return string;
 }
+
+export const hexToNumber = (hex: string): bigint => {
+    if (typeof hex !== 'string') throw new Error('hex string expected, got ' + typeof hex);
+    return hex === '' ? 0n : BigInt('0x' + hex);
+}
+export const bytesToNumberBE = (bytes: Uint8Array): bigint => hexToNumber(bytesToHex(bytes));

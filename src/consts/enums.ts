@@ -66,9 +66,16 @@ export enum FaceType {
 }
 
 /** ISO/IEC 19794-5. Image type (format) */
-export enum ImageType {
+export enum ISO19794ImageType {
     JPEG = 0,
     JPEG2000 = 1
+}
+
+/** ISO/IEC 39794-5. Image type (format) */
+export enum ISO39794ImageType {
+    jpeg = 2,
+    jpeg2000Lossy = 3,
+    jpeg2000Lossless = 4
 }
 
 /** ISO/IEC 19794-5. Image color space */
@@ -95,7 +102,7 @@ export enum SourceType {
 }
 
 /** ISO/IEC 19794-4. Image compression algorithm */
-export enum FingerprintImageType {
+export enum ISO19794FingerprintImageType {
     UNCOMPRESSED = 0x00,
     UNCOMPRESSEDPACKED = 0x01,
     WSQ = 0x02,
@@ -104,8 +111,17 @@ export enum FingerprintImageType {
     PNG = 0x05
 }
 
+/** ISO/IEC 39794-4. Image compression algorithm */
+export enum ISO39794FingerprintImageType {
+    pgm = 0,
+    wsq = 1,
+    jpeg2000Lossy = 2,
+    jpeg2000Lossless = 3,
+    png = 4
+}
+
 /** ISO/IEC 19794-4. Name of finger/part of palm */
-export enum FingerType {
+export enum ISO19794FingerType {
     UNKNOWN = 0x00,
     RIGHTTHUMB = 0x01,
     RIGHTINDEX = 0x02,
@@ -140,21 +156,119 @@ export enum FingerType {
     PALM_LEFT_HYPOTHENAR = 36
 }
 
+/** ISO/IEC 39794-4. Name of finger/part of palm */
+export enum ISO39794FingerType {
+    unknownPosition = 0,
+    rightThumbFinger = 1,
+    rightIndexFinger = 2,
+    rightMiddleFinger = 3,
+    rightRingFinger = 4,
+    rightLittleFinger = 5,
+    leftThumbFinger = 6,
+    leftIndexFinger = 7,
+    leftMiddleFinger = 8,
+    leftRingFinger = 9,
+    leftLittleFinger = 10,
+    rightFourFingers = 13,
+    leftFourFingers = 14,
+    bothThumbFingers = 15,
+    rightExtraDigitFinger = 16,
+    leftExtraDigitFinger = 17,
+    unknownFrictionRidge = 18,
+    entireJointImage = 19,
+    unknownPalm = 20,
+    rightFullPalm = 21,
+    rightWritersPalm = 22,
+    rightLowerPalm = 23,
+    rightUpperPalm = 24,
+    rightOtherPalm = 25,
+    rightInterdigital = 26,
+    rightThenar = 27,
+    rightHypothenar = 28,
+    leftFullPalm = 29,
+    leftWritersPalm = 30,
+    leftLowerPalm = 31,
+    leftUpperPalm = 32,
+    leftOtherPalm = 33,
+    leftInterdigital = 34,
+    leftThenar = 35,
+    leftHypothenar = 36,
+    rightGrasp = 37,
+    leftGrasp = 38,
+    rightIndexMiddleFingers = 40,
+    rightMiddleRingFingers = 41,
+    rightRingLittleFingers = 42,
+    leftIndexMiddleFingers = 43,
+    leftMiddleRingFingers = 44,
+    leftRingLittleFingers = 45,
+    rightIndexLeftIndexFingers = 46,
+    rightIndexMiddleRingFingers = 47,
+    rightMiddleRingLittleFingers = 48,
+    leftIndexMiddleRingFingers = 49,
+    leftMiddleRingLittleFingers = 50,
+    rightFourFingertips = 51,
+    leftFourFingertips = 52,
+    rightFingertips = 53,
+    leftFingertips = 54,
+    leftMiddleIndexRightIndexMiddleFingers = 55,
+    unknownSole = 60,
+    rightSole = 61,
+    leftSole = 62,
+    unknownToe = 63,
+    rightBigToe = 64,
+    rightSecondToe = 65,
+    rightMiddleToe = 66,
+    rightFourthToe = 67,
+    rightLittleToe = 68,
+    leftBigToe = 69,
+    leftSecondToe = 70,
+    leftMiddleToe = 71,
+    leftFourthToe = 72,
+    leftLittleToe = 73,
+    rightFrontBallFoot = 74,
+    rightBackHeelFoot = 75,
+    leftFrontBallFoot = 76,
+    leftBackHeelFoot = 77,
+    rightMiddleFoot = 78,
+    leftMiddleFoot = 79,
+    rightCarpalDelta = 81,
+    leftCarpalDelta = 82,
+    rightFullWithWriterPalm = 83,
+    leftFullWithWriterPalm = 84,
+    rightBracelet = 85,
+    leftBracelet = 86,
+    otherPosition = 999
+}
+
+/** ISO/IEC 39794-4. Type of fingerprint and palm image */
+export enum ISO39794FingerImageType {
+    plainContact = 0,
+    rolledContact = 1,
+    latentImage = 4,
+    swipeContact = 8,
+    stationarySubjectContactlessPlain = 24,
+    stationarySubjectContactlessRolled = 25,
+    movingSubjectContactlessPlain = 41,
+    movingSubjectContactlessRolled = 42,
+    otherImpression = 28,
+    unknownImpression = 29
+}
+
 /** ISO/IEC 19794-4. Type of fingerprint and palm image */
-export enum FingerImageType {
-    LIVE = 0x00,
-    LIVESWIPE = 0x01,
-    NONLIVE = 0x02,
-    NONLIVESWIPE = 0x02,
-    FOOTPRINT = 0x03,
-    BROACHING = 0x04,
-    LIVECONTACTLESS = 0x09
+export enum ISO19794FingerImageType {
+    LIVE = 0,
+    LIVESWIPE = 1,
+    NONLIVE = 2,
+    NONLIVESWIPE = 2,
+    FOOTPRINT = 3,
+    BROACHING = 4,
+    LIVECONTACTLESS = 9
 }
 
 /** ISO/IEC 19794-4. Unit of measurement of resolution */
 export enum ImageUnit {
-    DPI = 0x01,
-    DPCM = 0x02
+    DPI = 1,
+    DPCM = 2
 }
 
 /** ISO/IEC 19794-6. Image format */
