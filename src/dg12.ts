@@ -33,12 +33,12 @@ export class DG12 {
             imageOfFront: Uint8Array = Uint8Array.from([]),
             imageOfRear: Uint8Array = Uint8Array.from([]),
             dateOfPersonalization: number = 0,
-            personalizationNumber: string = ""
+            personalizationNumber: string = "";
 
         const tlv = TLV.parse(data);
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG12) throw new Error(`Invalid DG12 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG12.toString(16)}`);
         
-        for(let i of tlv.childs) {
+        for(const i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case ISSUING_AUTHORITY_TAG:
                     issuingAuthority = Utils.bytesToAscii(i.byteValue);
@@ -47,7 +47,7 @@ export class DG12 {
                     dateOfIssue = parseInt(Utils.bytesToHex(i.byteValue));
                     break;
                 case NAME_OF_OTHER_PERSON_ARRAY_TAG:
-                    for(let j of i.childs) {
+                    for(const j of i.childs) {
                         if(parseInt(j.tag, 16) == NAME_OF_OTHER_PERSON_TAG) namesOfOtherPersons.push(Utils.bytesToAscii(j.byteValue));
                     }
                     break;

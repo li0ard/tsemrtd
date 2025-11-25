@@ -22,7 +22,7 @@
 
 - Simple: Hides decoding process and provides simple and modern API
 - Type-Safe: Most of the APIs are strictly typed to help your workflow
-- Compliance: Fully complies with ICAO 9303 and ISO/IEC 19794 standards
+- Compliance: Fully complies with ICAO 9303, ISO/IEC 19794 and other standards
 - Supports Bun, Node.js, Deno, Browsers, Cloudflare Workers
 - Supports CSCA masterlist's (ICAO PKD)
 
@@ -83,5 +83,6 @@ Library doesn't support datagroups #6,8,9,10,13,16 because they are defined for 
 - [jmrtd](https://jmrtd.org) - An Open Source Java Implementation of eMRTD
 - [ICAO 9303](https://www.icao.int/publications/pages/publication.aspx?docnum=9303) - Specifications to MRTD
 - [ISO/IEC 19794(-4/-5/-6)](https://www.iso.org/standard/38745.html) - Specifications to Biometric Information Encoding (BioAPI)
+- [ISO/IEC 39794(-4/-5/-6)](https://www.iso.org/standard/70788.html) - Specifications to biometric data interchange formats
 - [NIST IR 6529A](https://csrc.nist.rip/publications/nistir/NISTIR6529A.pdf) - Specifications to CBEFF
 - [BSI TR-03110](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr03110/tr-03110.html) - Specifications to EAC/PACE

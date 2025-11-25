@@ -5,10 +5,6 @@ import { Enums } from "./index.js";
  * Class for working with DG5 (Displayed image)
 */
 export class DG5 {
-    readImage(tlv: TLV): Uint8Array {
-        if(parseInt(tlv.tag, 16) != 0x5f40) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x5f40`);
-        return tlv.byteValue;
-    }
     /**
      * Get displayed image
      * @param data Data of EF.DG5 file
@@ -18,11 +14,15 @@ export class DG5 {
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG5) throw new Error(`Invalid DG5 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG5.toString(16)}`);
 
         const bict = tlv.childs[0];
-        if(parseInt(bict.tag, 16) != 0x02) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);
+        if(parseInt(bict.tag, 16) != Enums.ISO7816Tags.BIOMETRIC_INFO_COUNT) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);
 
-        const bitCount = parseInt(bict.value, 16);
-        const results: Uint8Array[] = []
-        for(let i = 0; i < bitCount; i++) results.push(new DG5().readImage(tlv.childs[i + 1]));
+        const results: Uint8Array[] = [];
+        for(let i = 0; i < parseInt(bict.value, 16); i++) {
+            const record = tlv.childs[i + 1];
+            if(parseInt(record.tag, 16) != 0x5f40) throw new Error(`Invalid object tag "0x${tlv.tag}", expected 0x5f40`);
+
+            results.push(record.byteValue);
+        }
         return results;
     }
 }

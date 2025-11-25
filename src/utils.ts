@@ -15,7 +15,7 @@ const asciiToBase16 = (ch: number): number | undefined => {
  */
 export const bytesToHex = (bytes: Uint8Array): string => {
     let hex = '';
-    for (let i = 0; i < bytes.length; i++)  hex += hexes[bytes[i]];
+    for (let i = 0; i < bytes.length; i++) hex += hexes[bytes[i]];
     return hex;
 }
 /**
@@ -45,7 +45,7 @@ export const hexToBytes = (hex: string): Uint8Array => {
  */
 export const bytesToAscii = (bytes: Uint8Array): string => {
     let string = '';
-    for(let i of bytes) string += String.fromCharCode(i);
+    for(const i of bytes) string += String.fromCharCode(i);
     return string;
 }
 

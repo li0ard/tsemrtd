@@ -1,12 +1,11 @@
 import { test, expect } from "bun:test";
 import { join } from "path";
-import { DG2 } from "../src";
-import type { ISO19794DecodedImage, ISO39794DecodedImage } from "../src/consts/interfaces";
+import { DG2, Interfaces } from "../src/index.js";
 
 const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
 
 test("DG2", async () => {
-    const data = DG2.load(await getDGContent("EF_DG2.bin")) as ISO19794DecodedImage[];
+    const data = DG2.load(await getDGContent("EF_DG2.bin")) as Interfaces.ISO19794DecodedImage[];
     expect(data[0].sbh.type).toStrictEqual(2);
     expect(data[0].sbh.subtype).toStrictEqual(0);
     expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
@@ -36,7 +35,7 @@ test("DG2", async () => {
 });
 
 test("DG2 (ISO/IEC 39794-5)", async () => {
-    const data = DG2.load(await getDGContent("EF_DG2_ISO39794_full.bin")) as ISO39794DecodedImage[];
+    const data = DG2.load(await getDGContent("EF_DG2_ISO39794_full.bin")) as Interfaces.ISO39794DecodedImage[];
     expect(data[0].sbh.type).toStrictEqual(2);
     expect(data[0].sbh.subtype).toStrictEqual(0);
     expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
@@ -45,4 +44,4 @@ test("DG2 (ISO/IEC 39794-5)", async () => {
     expect(
         new Bun.CryptoHasher("sha256").update(data[0].imageData).digest().toString("hex")
     ).toBe("53e1cbbf9194c2aba069ff7db606201e61d6a6d45213fb763cde2a169eb54bb6");
-})
+});

@@ -47,7 +47,7 @@ export class DG11 {
         const tlv = TLV.parse(data);
         if(parseInt(tlv.tag, 16) != Enums.TAGS.DG11) throw new Error(`Invalid DG11 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG11.toString(16)}`);
         
-        for(let i of tlv.childs) {
+        for(const i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case FULL_NAME_TAG:
                     nameOfHolder = Utils.bytesToAscii(i.byteValue);
@@ -56,7 +56,7 @@ export class DG11 {
                     personalNumber = Utils.bytesToAscii(i.byteValue);
                     break;
                 case OTHER_NAME_ARRAY_TAG:
-                    for(let j of i.childs) {
+                    for(const j of i.childs) {
                         if(parseInt(j.tag, 16) == OTHER_NAME_TAG) otherNames.push(Utils.bytesToAscii(j.byteValue));
                     }
                     break;

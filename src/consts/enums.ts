@@ -1,3 +1,5 @@
+// Common
+
 /** Data groups tags */
 export enum TAGS {
     COM = 0x60,
@@ -19,6 +21,45 @@ export enum TAGS {
     DG16 = 0x70,
     SOD = 0x77
 }
+
+// CBEFF
+
+/** ISO/IEC 7816-11 tags */
+export enum ISO7816Tags {
+    BIOMETRIC_INFORMATION_GROUP_TEMPLATE = 0x7F61,
+    BIOMETRIC_INFORMATION_TEMPLATE = 0x7F60,
+    BIOMETRIC_INFO_COUNT = 2,
+    BIOMETRIC_HEADER_TEMPLATE_BASE = 0xA1,
+    BIOMETRIC_DATA_BLOCK = 0x5F2E,
+    BIOMETRIC_DATA_BLOCK_CONSTRUCTED = 0x7F2E
+}
+
+/** NIST IR 6529A. Table 4 – Biometric Type */
+export enum CBEFFBiometricType {
+    UNSPECIFIED = 0x00,
+    MULTIPLE = 0x01,
+    FACIAL_FEATURES = 0x02,
+    VOICE = 0x04,
+    FINGERPRINT = 0x08,
+    IRIS = 0x10,
+    RETINA = 0x20,
+    HAND_GEOMETRY = 0x40,
+    SIGNATURE_DYNAMICS = 0x80,
+    KEYSTROKE_DYNAMICS = 0x100,
+    LIP_MOVEMENT = 0x200,
+    THERMAL_FACE_IMAGE = 0x400,
+    THERMAL_HAND_IMAGE = 0x800,
+    GAIT = 0x1000,
+    BODY_ODOR = 0x2000,
+    DNA = 0x4000,
+    EAR_SHAPE = 0x8000,
+    FINGER_GEOMETRY = 0x10000,
+    PALM_PRINT = 0x20000,
+    VEIN_PATTERN = 0x40000,
+    FOOT_PRINT = 0x80000
+}
+
+// DG2
 
 /** ISO/IEC 19794-5. Gender */
 export enum Gender {
@@ -100,6 +141,8 @@ export enum SourceType {
     FRAMEBYDCAM = 0x06,
     UNKNOWN = 0x07
 }
+
+// DG3
 
 /** ISO/IEC 19794-4. Image compression algorithm */
 export enum ISO19794FingerprintImageType {
@@ -265,6 +308,8 @@ export enum ISO19794FingerImageType {
     LIVECONTACTLESS = 9
 }
 
+// DG4
+
 /** ISO/IEC 19794-4. Unit of measurement of resolution */
 export enum ImageUnit {
     DPI = 1,
@@ -272,7 +317,7 @@ export enum ImageUnit {
 }
 
 /** ISO/IEC 19794-6. Image format */
-export enum IrisImageFormat {
+export enum ISO19794IrisImageFormat {
     RAWMONO = 0x02,
     RAWRGB = 0x04,
     JPEGMONO = 0x06,
@@ -283,34 +328,47 @@ export enum IrisImageFormat {
     JPEG000RGB = 0x10
 }
 
-/** ISO/IEC 19794-6. Iris biometric subtype */
-export enum IrisEyeSubtype {
-    UNDEFINED = 0x00,
-    LEFT = 0x01,
-    RIGHT = 0x02
+export enum ISO39794IrisImageFormat {
+    pgm = 0,
+    ppm = 1,
+    png = 2,
+    jpeg2000Lossless = 3,
+    jpeg2000Lossy = 4
 }
 
-/** NIST IR 6529A. Table 4 – Biometric Type */
-export enum CBEFFBiometricType {
-    UNSPECIFIED = 0x00,
-    MULTIPLE = 0x01,
-    FACIAL_FEATURES = 0x02,
-    VOICE = 0x04,
-    FINGERPRINT = 0x08,
-    IRIS = 0x10,
-    RETINA = 0x20,
-    HAND_GEOMETRY = 0x40,
-    SIGNATURE_DYNAMICS = 0x80,
-    KEYSTROKE_DYNAMICS = 0x100,
-    LIP_MOVEMENT = 0x200,
-    THERMAL_FACE_IMAGE = 0x400,
-    THERMAL_HAND_IMAGE = 0x800,
-    GAIT = 0x1000,
-    BODY_ODOR = 0x2000,
-    DNA = 0x4000,
-    EAR_SHAPE = 0x8000,
-    FINGER_GEOMETRY = 0x10000,
-    PALM_PRINT = 0x20000,
-    VEIN_PATTERN = 0x40000,
-    FOOT_PRINT = 0x80000
+/** ISO/IEC 19794-6. Iris biometric subtype */
+export enum ISO19794IrisEyeSubtype {
+    UNDEFINED = 0,
+    LEFT = 1,
+    RIGHT = 2
+}
+
+export enum ISO39794IrisEyeSubtype {
+    unknown = 0,
+    rightIris = 1,
+    leftIris = 2
+}
+
+export enum ISO39794IrisImageKindCode {
+    uncropped = 1,
+    vGA = 2,
+    cropped = 3,
+    croppedAndMasked = 7
+}
+export enum ISO39794HorizontalOrientationCode {
+    undefined = 0,
+    leftToRight = 1,
+    rightToLeft = 2
+}
+
+export enum ISO39794VerticalOrientationCode {
+    undefined = 0,
+    topToBottom = 1,
+    bottomToTop = 2
+}
+
+export enum ISO39794CompressionHistoryCode {
+    undefined = 0,
+    losslessOrNone = 1,
+    lossy = 2
 }

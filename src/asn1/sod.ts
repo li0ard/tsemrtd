@@ -20,7 +20,7 @@ export class LDSObject {
 
     /** OID of digest algorithm */
     @AsnProp({ type: DigestAlgorithmIdentifier })
-    algorithm: DigestAlgorithmIdentifier = new DigestAlgorithmIdentifier()
+    algorithm: DigestAlgorithmIdentifier = new DigestAlgorithmIdentifier();
 
     /** Datagroups arrays */
     @AsnProp({ type: DGHash, repeated: "sequence" })

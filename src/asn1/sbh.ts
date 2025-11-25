@@ -5,7 +5,7 @@ import type { Enums } from "../index.js";
  * Standard Biometric Header (SBH)
  * @hideconstructor
  */
-export default class SBH {
+export class SBH {
     /** ICAO header version - Version of the CBEFF patron header format  */
     @AsnProp({ type: AsnPropTypes.OctetString, context: 0, implicit: true, optional: true })
     version?: Uint8Array;

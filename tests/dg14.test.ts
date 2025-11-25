@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test";
 import { join } from "path";
-import { DG14, Schemas } from "../src";
+import { DG14, Schemas } from "../src/index.js";
 
 const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
 

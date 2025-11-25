@@ -17,19 +17,11 @@ export class DG14 {
 
         const infos = AsnConvert.parse(tlv.byteValue, SecurityInfos);
         const set = new SecurityInfos();
-        for(let i of infos) {
-            if(i.protocol == Oids.TerminalAuthentication) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo));
-            }
-            else if((Object.values(Oids.ChipAuthInfo) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo));
-            }
-            else if((Object.values(Oids.ChipAuthPublicKey) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo));
-            }
-            else if((Object.values(Oids.ChipAuthDomainParameters) as string[]).includes(i.protocol)) {
-                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo));
-            }
+        for(const i of infos) {
+            if(i.protocol == Oids.TerminalAuthentication) set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo));
+            else if((Object.values(Oids.ChipAuthInfo) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo));
+            else if((Object.values(Oids.ChipAuthPublicKey) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo));
+            else if((Object.values(Oids.ChipAuthDomainParameters) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo));
             else set.push(i);
         }
 

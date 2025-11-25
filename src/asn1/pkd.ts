@@ -9,5 +9,5 @@ export class CSCAMasterList {
 
     /** CSCA certificates */
     @AsnProp({ type: CertificateSet })
-    certificates: CertificateSet = new CertificateSet()
+    certificates: CertificateSet = new CertificateSet();
 }

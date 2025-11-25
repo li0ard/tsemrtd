@@ -1,12 +1,11 @@
 import { test, expect } from "bun:test";
 import { join } from "path";
-import { DG3 } from "../src";
-import type { ISO19794DecodedFingerprint, ISO39794DecodedFingerprint } from "../src/consts/interfaces";
+import { DG3, Interfaces } from "../src/index.js";
 
 const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
 
 test("DG3", async () => {
-    const data = DG3.load(await getDGContent("EF_DG3.bin")) as ISO19794DecodedFingerprint[];
+    const data = DG3.load(await getDGContent("EF_DG3.bin")) as Interfaces.ISO19794DecodedFingerprint[];
     expect(data[0].sbh.type).toStrictEqual(8);
     expect(data[0].sbh.subtype).toStrictEqual(9);
     expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
@@ -64,7 +63,7 @@ test("DG3", async () => {
 });
 
 test("DG3 (ISO/IEC 39794-4)", async () => {
-    const data = DG3.load(await getDGContent("EF_DG3_ISO39794_full.bin")) as ISO39794DecodedFingerprint[];
+    const data = DG3.load(await getDGContent("EF_DG3_ISO39794_full.bin")) as Interfaces.ISO39794DecodedFingerprint[];
     expect(data[0].sbh.type).toStrictEqual(8);
     expect(data[0].sbh.subtype).toStrictEqual(9);
     expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
@@ -87,4 +86,4 @@ test("DG3 (ISO/IEC 39794-4)", async () => {
     expect(
         new Bun.CryptoHasher("sha256").update(data[1].imageData).digest().toString("hex")
     ).toBe("6d81d55bfe847ebbd625a435e31d829f2cdafe99b76baf2b4feec7b66e066207");
-})
+});

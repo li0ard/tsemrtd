@@ -20,7 +20,7 @@ export class SecurityInfo {
 export class FileID {
     /** File ID */
     @AsnProp({ type: AsnPropTypes.OctetString })
-    fid: Uint8Array = new Uint8Array()
+    fid: Uint8Array = new Uint8Array();
 
     /** Short file ID */
     @AsnProp({ type: AsnPropTypes.OctetString, optional: true })
@@ -65,7 +65,7 @@ export class ChipAuthenticationPublicKeyInfo {
 
     /** Public key in encoded form ([RFC 5480](https://datatracker.ietf.org/doc/html/rfc5480#section-2)) */
     @AsnProp({ type: SubjectPublicKeyInfo })
-    chipAuthenticationPublicKey: SubjectPublicKeyInfo = new SubjectPublicKeyInfo()
+    chipAuthenticationPublicKey: SubjectPublicKeyInfo = new SubjectPublicKeyInfo();
 
     /** Indicate the local key identifier (and domain parameters for key agreement) */
     @AsnProp({ type: AsnPropTypes.Integer, optional: true })

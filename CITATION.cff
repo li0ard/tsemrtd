@@ -1,0 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: '@li0ard/tsemrtd'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Nikolai
+    family-names: Konovalov
+    email: li0ard@li0ard.rest
+    affiliation: TheInfinityWay
+    orcid: 'https://orcid.org/0009-0008-6084-7154'
+repository-code: 'https://github.com/li0ard/tsemrtd'
+abstract: 'simple library for eMRTD. supports browsers, node, bun and more!'
+keywords:
+  - emrtd
+  - mrtd
+  - icao
+  - tsemrtd
+  - passport
+license: MIT

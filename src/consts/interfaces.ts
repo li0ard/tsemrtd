@@ -1,7 +1,8 @@
-import type { EyeColor, FaceType, ISO19794FingerImageType, ISO19794FingerType, ISO19794FingerprintImageType, Gender, HairColor, ImageColorSpace, ISO19794ImageType, ImageUnit, IrisEyeSubtype, IrisImageFormat, SourceType, ISO39794ImageType, ISO39794FingerType, ISO39794FingerprintImageType, ISO39794FingerImageType } from "./enums.js";
+import type { EyeColor, FaceType, ISO19794FingerImageType, ISO19794FingerType, ISO19794FingerprintImageType, Gender, HairColor, ImageColorSpace, ISO19794ImageType, ImageUnit, ISO19794IrisEyeSubtype, ISO19794IrisImageFormat, SourceType, ISO39794ImageType, ISO39794FingerType, ISO39794FingerprintImageType, ISO39794FingerImageType, ISO39794IrisImageFormat, ISO39794IrisEyeSubtype } from "./enums.js";
 import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
 import type { LDSObject } from "../asn1/sod.js";
 import type { SBH } from "../asn1/index.js";
+import type { TLV } from "@li0ard/tinytlv";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
@@ -19,6 +20,11 @@ interface AbstractBioTemplate {
     quality: number;
     /** Raw image data */
     imageData: Uint8Array;
+}
+
+/** Wrapper for Biometric data block (BDB) decoder */
+export interface BDBDecoder {
+    load(firstBlock: TLV): any;
 }
 
 /** Decoded EF.COM datagroup */
@@ -39,7 +45,7 @@ export interface ISO39794DecodedImage {
     /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
     sbh: SBH;
     /** Image Data Type */
-    imageType: ISO39794ImageType
+    imageType: ISO39794ImageType;
     /** Raw image data */
     imageData: Uint8Array;
 }
@@ -129,8 +135,25 @@ export interface ISO19794DecodedFingerprint extends AbstractBioTemplate {
     imageType: ISO19794FingerprintImageType;
 }
 
-/** Decoded EF.DG4 datagroup */
-export interface DecodedIris extends AbstractBioTemplate {
+/** Decoded EF.DG4 datagroup (ISO/IEC 39794-4 or ISO/IEC 19794-4) */
+export type DecodedIris = ISO19794DecodedIris | ISO39794DecodedIris;
+
+/** Decoded EF.DG4 datagroup (ISO/IEC 39794-4) */
+export interface ISO39794DecodedIris {
+    /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
+    sbh: SBH;
+    /** Raw image data */
+    imageData: Uint8Array;
+    /** Image Data Type */
+    imageType: ISO39794IrisImageFormat;
+    /** Bit depth of the grayscale scale */
+    depth: number;
+    /** Eye type */
+    biometricSubtype: ISO39794IrisEyeSubtype;
+}
+
+/** Decoded EF.DG4 datagroup (ISO/IEC 19794-4) */
+export interface ISO19794DecodedIris extends AbstractBioTemplate {
     /** ID of Biometric scanner (by manufacturer) */
     captureDeviceId: number;
     /** Bit field of image properties. ISO/IEC 19794-6, table 2 */
@@ -144,13 +167,13 @@ export interface DecodedIris extends AbstractBioTemplate {
     /** ID of Biometric scanner (by issuing authority) */
     deviceUniqueId: bigint;
     /** Eye type */
-    biometricSubtype: IrisEyeSubtype;
+    biometricSubtype: ISO19794IrisEyeSubtype;
     /** Rotation angle of image */
     rotationAngle: number;
     /** Error of rotation angle */
     rotationAngleUncertainty: number;
     /** Image Data Type */
-    imageType: IrisImageFormat;
+    imageType: ISO19794IrisImageFormat;
 }
 
 /** Decoded EF.DG11 datagroup */

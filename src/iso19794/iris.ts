@@ -3,6 +3,7 @@ import { Utils } from "../index.js";
 
 /** ISO/IEC 19794-6 Iris image decoder */
 export class ISO19794IrisDecoder {
+    /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
         const data = new DataView(firstBlock.byteValue.buffer, firstBlock.byteValue.byteOffset, firstBlock.byteValue.byteLength);
         let offset = 0;

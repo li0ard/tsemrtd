@@ -3,6 +3,7 @@ import { Utils } from "../index.js";
 
 /** ISO/IEC 19794-4 Fingerprint image decoder */
 export class ISO19794FingerprintDecoder {
+    /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
         const data = new DataView(firstBlock.byteValue.buffer, firstBlock.byteValue.byteOffset, firstBlock.byteValue.byteLength);
         let offset = 0;

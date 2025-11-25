@@ -1,15 +1,15 @@
 import { AsnProp, AsnType, AsnPropTypes, AsnTypeTypes, AsnArray, AsnConvert } from "@peculiar/asn1-schema";
 import { TLV } from "@li0ard/tinytlv";
 import { VersionBlock } from "./common.js";
-import type { ISO39794FingerprintImageType, ISO39794FingerType, ISO39794FingerImageType } from "../consts/enums.js";
+import { type ISO39794FingerprintImageType, type ISO39794FingerType, type ISO39794FingerImageType, ISO7816Tags } from "../consts/enums.js";
 
-export class PositionExtensionBlock {
+class PositionExtensionBlock {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     fallback!: ISO39794FingerType;
 }
 
 @AsnType({ type: AsnTypeTypes.Choice })
-export class Position {
+class Position {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     code?: ISO39794FingerType;
 
@@ -17,13 +17,13 @@ export class Position {
     extensionBlock?: PositionExtensionBlock;
 }
 
-export class ImpressionExtensionBlock {
+class ImpressionExtensionBlock {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     fallback!: ISO39794FingerImageType;
 }
 
 @AsnType({ type: AsnTypeTypes.Choice })
-export class Impression {
+class Impression {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     code?: ISO39794FingerImageType;
 
@@ -31,13 +31,13 @@ export class Impression {
     extensionBlock?: ImpressionExtensionBlock;
 }
 
-export class ImageDataFormatExtensionBlock {
+class ImageDataFormatExtensionBlock {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     fallback!: ISO39794FingerprintImageType;
 }
 
 @AsnType({ type: AsnTypeTypes.Choice })
-export class ImageDataFormat {
+class ImageDataFormat {
     @AsnProp({ type: AsnPropTypes.Integer, context: 0, implicit: true })
     code?: ISO39794FingerprintImageType;
 
@@ -46,7 +46,7 @@ export class ImageDataFormat {
 }
 
 /** Fingerprint representation block */
-export class RepresentationBlock {
+class RepresentationBlock {
     @AsnProp({ type: Position, context: 0 })
     position = new Position();
 
@@ -62,9 +62,10 @@ export class RepresentationBlock {
 
 /** Fingerprint representation blocks */
 @AsnType({ type: AsnTypeTypes.Sequence, itemType: RepresentationBlock })
-export class RepresentationBlocks extends AsnArray<RepresentationBlock> {}
+class RepresentationBlocks extends AsnArray<RepresentationBlock> {}
 
-export class FingerImageDataBlock {
+/** Fingerprint image block */
+class FingerImageDataBlock {
     /** Standard version block */
     @AsnProp({ type: VersionBlock, context: 0, implicit: true })
     versionBlock = new VersionBlock();
@@ -79,11 +80,12 @@ export class FingerImageDataBlock {
  * @experimental
  */
 export class ISO39794FingerprintDecoder {
+    /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
-        const iso78161Blob = firstBlock.childs[0];
-        if(parseInt(iso78161Blob.tag, 16) != 0xa1) throw new Error(`Invalid object tag "0x${iso78161Blob.tag}", expected 0xa1`);
+        const iso7816Blob = firstBlock.childs[0];
+        if(parseInt(iso7816Blob.tag, 16) != ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE) throw new Error(`Invalid object tag "0x${iso7816Blob.tag}", expected 0x${ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE.toString(16)}`);
         
-        const encodedFaceImage = iso78161Blob.childs[0];
+        const encodedFaceImage = iso7816Blob.childs[0];
         if(parseInt(encodedFaceImage.tag, 16) != 0x64) throw new Error(`Invalid ISO/IEC 39794-4 tag "0x${encodedFaceImage.tag}", expected 0x64`);
 
         // TODO: Fix this when APPLICATION type will be supported in "@peculiar/asn1-schema"

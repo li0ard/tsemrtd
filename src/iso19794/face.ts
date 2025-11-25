@@ -2,6 +2,7 @@ import { TLV } from "@li0ard/tinytlv";
 
 /** ISO/IEC 19794-5 Face image decoder */
 export class ISO19794FaceDecoder {
+    /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
         const data = new DataView(firstBlock.byteValue.buffer, firstBlock.byteValue.byteOffset, firstBlock.byteValue.byteLength);
         let offset = 0;
