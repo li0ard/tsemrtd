@@ -1,8 +1,10 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Enums, type Interfaces } from "./index.js";
 import { AsnConvert } from "@peculiar/asn1-schema";
 import { LDSObject } from "./asn1/sod.js";
 import { ContentInfo, SignedData } from "@peculiar/asn1-cms";
+import { TAGS } from "./consts/enums.js";
+import type { DecodedSecurtyObjectOfDocument } from "./consts/interfaces.js";
+import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with SOD (Security object)
@@ -12,9 +14,9 @@ export class SOD {
      * Get version, algorithm, data groups hashes
      * @param data Data of EF.SOD file
      */
-    static load(data: string | Uint8Array): Interfaces.DecodedSecurtyObjectOfDocument {
+    static load(data: string | Uint8Array): DecodedSecurtyObjectOfDocument {
         const tlv = TLV.parse(data);
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.SOD) throw new Error(`Invalid SOD tag "0x${tlv.tag}", expected 0x${Enums.TAGS.SOD.toString(16)}`);
+        validateDataGroupTag(tlv, TAGS.SOD);
 
         const contentInfo = AsnConvert.parse(tlv.byteValue, ContentInfo);
         const signedData = AsnConvert.parse(contentInfo.content, SignedData);

@@ -1,5 +1,7 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Enums, Interfaces, Utils } from "./index.js";
+import { TAGS } from "./consts/enums.js";
+import type { DecodedAdditionalPersonalData } from "./consts/interfaces.js";
+import { validateDataGroupTag, bytesToAscii } from "./utils.js";
 
 /**
  * Class for working with DG11 (Additional personal data)
@@ -9,7 +11,7 @@ export class DG11 {
      * Get additional personal data
      * @param data Data of EF.DG11 file
      */
-    static load(data: string | Uint8Array): Interfaces.DecodedAdditionalPersonalData {
+    static load(data: string | Uint8Array): DecodedAdditionalPersonalData {
         const FULL_NAME_TAG = 0x5F0E;
         const OTHER_NAME_TAG = 0x5F0F;
         const OTHER_NAME_ARRAY_TAG = 0xA0;
@@ -45,50 +47,50 @@ export class DG11 {
             custodyInformation: string = "";
 
         const tlv = TLV.parse(data);
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG11) throw new Error(`Invalid DG11 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG11.toString(16)}`);
+        validateDataGroupTag(tlv, TAGS.DG11);
         
         for(const i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case FULL_NAME_TAG:
-                    nameOfHolder = Utils.bytesToAscii(i.byteValue);
+                    nameOfHolder = bytesToAscii(i.byteValue);
                     break;
                 case PERSONAL_NUMBER_TAG:
-                    personalNumber = Utils.bytesToAscii(i.byteValue);
+                    personalNumber = bytesToAscii(i.byteValue);
                     break;
                 case OTHER_NAME_ARRAY_TAG:
                     for(const j of i.childs) {
-                        if(parseInt(j.tag, 16) == OTHER_NAME_TAG) otherNames.push(Utils.bytesToAscii(j.byteValue));
+                        if(parseInt(j.tag, 16) == OTHER_NAME_TAG) otherNames.push(bytesToAscii(j.byteValue));
                     }
                     break;
                 case FULL_DATE_OF_BIRTH_TAG:
-                    fullDateOfBirth = parseInt(Utils.bytesToAscii(i.byteValue));
+                    fullDateOfBirth = parseInt(bytesToAscii(i.byteValue));
                     break;
                 case PLACE_OF_BIRTH_TAG:
-                    placeOfBirth = Utils.bytesToAscii(i.byteValue).split("<");
+                    placeOfBirth = bytesToAscii(i.byteValue).split("<");
                     break;
                 case PERMANENT_ADDRESS_TAG:
-                    permanentAddress = Utils.bytesToAscii(i.byteValue).split("<");
+                    permanentAddress = bytesToAscii(i.byteValue).split("<");
                     break;
                 case TELEPHONE_TAG:
-                    telephone = Utils.bytesToAscii(i.byteValue);
+                    telephone = bytesToAscii(i.byteValue);
                     break
                 case PROFESSION_TAG:
-                    profession = Utils.bytesToAscii(i.byteValue);
+                    profession = bytesToAscii(i.byteValue);
                     break;
                 case TITLE_TAG:
-                    title = Utils.bytesToAscii(i.byteValue);
+                    title = bytesToAscii(i.byteValue);
                     break;
                 case PERSONAL_SUMMARY_TAG:
-                    personalSummary = Utils.bytesToAscii(i.byteValue);
+                    personalSummary = bytesToAscii(i.byteValue);
                     break;
                 case PROOF_OF_CITIZENSHIP_TAG:
                     proofOfCitizenship = i.byteValue;
                     break;
                 case OTHER_VALID_TD_NUMBERS_TAG:
-                    otherValidTDNumbers = Utils.bytesToAscii(i.byteValue).split("<");
+                    otherValidTDNumbers = bytesToAscii(i.byteValue).split("<");
                     break;
                 case CUSTODY_INFORMATION_TAG:
-                    custodyInformation = Utils.bytesToAscii(i.byteValue);
+                    custodyInformation = bytesToAscii(i.byteValue);
                     break;
             }
         }

@@ -1,5 +1,7 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Enums, Interfaces, Utils } from "./index.js";
+import { TAGS } from "./consts/enums.js";
+import type { DecodedCom } from "./consts/interfaces.js";
+import { validateDataGroupTag, bytesToAscii } from "./utils.js";
 
 /**
  * Class for working with COM (Manifest)
@@ -9,12 +11,12 @@ export class COM {
      * Get LDS and Unicode versions and data groups tags
      * @param data Data of EF.COM file
      */
-    static load(data: string | Uint8Array): Interfaces.DecodedCom {
+    static load(data: string | Uint8Array): DecodedCom {
         const tlv = TLV.parse(data);
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.COM) throw new Error(`Invalid COM tag "0x${tlv.tag}", expected 0x${Enums.TAGS.COM.toString(16)}`);
+        validateDataGroupTag(tlv, TAGS.COM);
         return {
-            ldsVersion: Utils.bytesToAscii(tlv.childs[0].byteValue),
-            unicodeVersion: Utils.bytesToAscii(tlv.childs[1].byteValue),
+            ldsVersion: bytesToAscii(tlv.childs[0].byteValue),
+            unicodeVersion: bytesToAscii(tlv.childs[1].byteValue),
             tags: tlv.childs[2].byteValue
         }
     }

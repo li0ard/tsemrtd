@@ -1,5 +1,8 @@
 // Code from @noble/hashes/utils.ts
 
+import type { TLV } from "@li0ard/tinytlv";
+import type { TAGS } from "./consts/enums.js";
+
 const hexes = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, '0'));
 const asciis = { _0: 48, _9: 57, A: 65, F: 70, a: 97, f: 102 } as const;
 const asciiToBase16 = (ch: number): number | undefined => {
@@ -54,3 +57,7 @@ export const hexToNumber = (hex: string): bigint => {
     return hex === '' ? 0n : BigInt('0x' + hex);
 }
 export const bytesToNumberBE = (bytes: Uint8Array): bigint => hexToNumber(bytesToHex(bytes));
+
+export const validateDataGroupTag = (tlv: TLV, tag: TAGS) => {
+    if(parseInt(tlv.tag, 16) != tag) throw new Error(`Invalid data group tag "0x${tlv.tag}", expected 0x${tag.toString(16)}`);
+}

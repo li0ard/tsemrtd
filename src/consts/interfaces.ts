@@ -24,6 +24,7 @@ interface AbstractBioTemplate {
 
 /** Wrapper for Biometric data block (BDB) decoder */
 export interface BDBDecoder {
+    /** Decode biometric data block (BDB) */
     load(firstBlock: TLV): any;
 }
 
@@ -135,7 +136,7 @@ export interface ISO19794DecodedFingerprint extends AbstractBioTemplate {
     imageType: ISO19794FingerprintImageType;
 }
 
-/** Decoded EF.DG4 datagroup (ISO/IEC 39794-4 or ISO/IEC 19794-4) */
+/** Decoded EF.DG4 datagroup (ISO/IEC 39794-6 or ISO/IEC 19794-6) */
 export type DecodedIris = ISO19794DecodedIris | ISO39794DecodedIris;
 
 /** Decoded EF.DG4 datagroup (ISO/IEC 39794-4) */

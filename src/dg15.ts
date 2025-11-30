@@ -1,7 +1,8 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Enums } from "./index.js";
 import { SubjectPublicKeyInfo } from "@peculiar/asn1-x509";
 import { AsnConvert } from "@peculiar/asn1-schema";
+import { TAGS } from "./consts/enums.js";
+import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG15 (Active authentication info)
@@ -13,7 +14,7 @@ export class DG15 {
      */
     static load(data: string | Uint8Array): SubjectPublicKeyInfo {
         const tlv = TLV.parse(data);
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG15) throw new Error(`Invalid DG15 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG15.toString(16)}`);
+        validateDataGroupTag(tlv, TAGS.DG15);
 
         return AsnConvert.parse(tlv.byteValue, SubjectPublicKeyInfo);
     }

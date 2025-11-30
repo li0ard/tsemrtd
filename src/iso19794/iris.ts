@@ -1,5 +1,5 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Utils } from "../index.js";
+import { bytesToNumberBE } from "../utils.js";
 
 /** ISO/IEC 19794-6 Iris image decoder */
 export class ISO19794IrisDecoder {
@@ -52,7 +52,7 @@ export class ISO19794IrisDecoder {
         const imageTransformation = data.getUint8(offset);
         offset += 1;
 
-        const deviceUniqueId = Utils.bytesToNumberBE(firstBlock.byteValue.slice(offset,offset+16)); //parseInt(Utils.bytesToHex(firstBlock.byteValue.slice(offset,offset+16)), 16);
+        const deviceUniqueId = bytesToNumberBE(firstBlock.byteValue.slice(offset,offset+16));
         offset += 16;
 
         const biometricSubtype = data.getUint8(offset);

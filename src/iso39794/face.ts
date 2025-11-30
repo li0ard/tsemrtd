@@ -87,7 +87,7 @@ export class ISO39794FaceDecoder {
         // TODO: Fix this when APPLICATION type will be supported in "@peculiar/asn1-schema"
         const decoded = AsnConvert.parse(new TLV("30", encodedFaceImage.byteValue).toBytes(), FaceImageDataBlock);
 
-        for(let i of decoded.representationBlocks) {
+        for(const i of decoded.representationBlocks) {
             const base = i.imageRepresentation.base;
             if(!base || !base.imageRepresentation2DBlock) continue;
 

@@ -1,7 +1,7 @@
 import { AsnConvert } from "@peculiar/asn1-schema";
 import { ContentInfo, SignedData } from "@peculiar/asn1-cms";
 import { CSCAMasterList } from "./asn1/pkd.js";
-import { Utils } from "./index.js";
+import { hexToBytes } from "./utils.js";
 
 /**
  * Class for working with CSCA master list
@@ -13,7 +13,7 @@ export class PKD {
      * @param data Data of ICAO master list file (.ml)
      */
     static load(data: string | Uint8Array): CSCAMasterList {
-        if(typeof data == "string") data = Utils.hexToBytes(data);
+        if(typeof data == "string") data = hexToBytes(data);
 
         const contentInfo = AsnConvert.parse(data, ContentInfo);
         const signedData = AsnConvert.parse(contentInfo.content, SignedData);

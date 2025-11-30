@@ -1,5 +1,6 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Enums } from "./index.js";
+import { TAGS, ISO7816Tags } from "./consts/enums.js";
+import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG5 (Displayed image)
@@ -11,10 +12,10 @@ export class DG5 {
      */
     static load(data: string | Uint8Array): Uint8Array[] {
         const tlv = TLV.parse(data);
-        if(parseInt(tlv.tag, 16) != Enums.TAGS.DG5) throw new Error(`Invalid DG5 tag "0x${tlv.tag}", expected 0x${Enums.TAGS.DG5.toString(16)}`);
+        validateDataGroupTag(tlv, TAGS.DG5);
 
         const bict = tlv.childs[0];
-        if(parseInt(bict.tag, 16) != Enums.ISO7816Tags.BIOMETRIC_INFO_COUNT) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);
+        if(parseInt(bict.tag, 16) != ISO7816Tags.BIOMETRIC_INFO_COUNT) throw new Error(`Invalid object tag "0x${bict.tag}", expected 0x02`);
 
         const results: Uint8Array[] = [];
         for(let i = 0; i < parseInt(bict.value, 16); i++) {

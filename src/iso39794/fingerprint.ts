@@ -91,7 +91,7 @@ export class ISO39794FingerprintDecoder {
         // TODO: Fix this when APPLICATION type will be supported in "@peculiar/asn1-schema"
         const decoded = AsnConvert.parse(new TLV("30", encodedFaceImage.byteValue).toBytes(), FingerImageDataBlock);
 
-        for(let i of decoded.representationBlocks) {
+        for(const i of decoded.representationBlocks) {
             if(!i.imageDataFormat.code || !i.position.code || !i.impression.code) continue;
 
             return {

@@ -1,5 +1,5 @@
 import { TLV } from "@li0ard/tinytlv";
-import { Utils } from "../index.js";
+import { bytesToNumberBE } from "../utils.js";
 
 /** ISO/IEC 19794-4 Fingerprint image decoder */
 export class ISO19794FingerprintDecoder {
@@ -14,7 +14,7 @@ export class ISO19794FingerprintDecoder {
         if(data.getUint32(offset) != 0x30313000) throw new Error("Version of Biometric data is not valid");
         offset += 4;
 
-        const lengthOfRecord = Number(Utils.bytesToNumberBE(firstBlock.byteValue.slice(offset,offset+6)));
+        const lengthOfRecord = Number(bytesToNumberBE(firstBlock.byteValue.slice(offset,offset+6)));
         offset += 6;
 
         const captureDeviceId = data.getUint16(offset);

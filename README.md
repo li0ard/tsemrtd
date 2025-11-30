@@ -40,23 +40,23 @@ bunx jsr add @li0ard/tsemrtd
 
 ### Get MRZ
 ```ts
-import { DG1 } from "@li0ard/tsemrtd"
+import { DG1 } from "@li0ard/tsemrtd";
 
-let file = await Bun.file("EF_DG1.bin").bytes()
-let data = DG1.load(file)
-console.log(data)
+const file = await Bun.file("EF_DG1.bin").bytes();
+const data = DG1.load(file);
+console.log(data);
 // P<D<<MUSTERMANN<<ERIKA<<<<<<<<<<<<<<<<<<<<<<
 // C11T002JM4D<<9608122F1310317<<<<<<<<<<<<<<<6
 ```
 
 ### Extract and save photo
 ```ts
-import { DG2 } from "@li0ard/tsemrtd"
+import { DG2 } from "@li0ard/tsemrtd";
 
-let file = await Bun.file("EF_DG2.bin").bytes()
-let data = DG2.load(file)
+const file = await Bun.file("EF_DG2.bin").bytes();
+const data = DG2.load(file);
 
-await Bun.write("image.jp2",data[0].imageData)
+await Bun.write("image.jp2",data[0].imageData);
 ```
 
 ## Supported DG's

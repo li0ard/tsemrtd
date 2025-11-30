@@ -1,5 +1,5 @@
 import { AsnProp, AsnPropTypes } from "@peculiar/asn1-schema";
-import type { Enums } from "../index.js";
+import type { CBEFFBiometricType } from "../consts/enums.js";
 
 /**
  * Standard Biometric Header (SBH)
@@ -12,7 +12,7 @@ export class SBH {
 
     /** Biometric type */
     @AsnProp({ type: AsnPropTypes.Integer, context: 1, implicit: true, optional: true })
-    type?: Enums.CBEFFBiometricType;
+    type?: CBEFFBiometricType;
 
     /** Biometric sub-type. (NIST IR 6529A, Table 6) */
     @AsnProp({ type: AsnPropTypes.Integer, context: 2, implicit: true, optional: true })
