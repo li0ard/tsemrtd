@@ -58,6 +58,6 @@ export const hexToNumber = (hex: string): bigint => {
 }
 export const bytesToNumberBE = (bytes: Uint8Array): bigint => hexToNumber(bytesToHex(bytes));
 
-export const validateDataGroupTag = (tlv: TLV, tag: TAGS) => {
+export const validateDataGroupTag = (tlv: TLV, tag: TAGS): void => {
     if(parseInt(tlv.tag, 16) != tag) throw new Error(`Invalid data group tag "0x${tlv.tag}", expected 0x${tag.toString(16)}`);
 }
