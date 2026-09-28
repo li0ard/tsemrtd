@@ -9,7 +9,7 @@ export class DGHash {
 
     /** Datagroup hash */
     @AsnProp({ type: AsnPropTypes.OctetString })
-    hash: Uint8Array = new Uint8Array();
+    hash: ArrayBuffer = new ArrayBuffer();
 }
 
 /** Class for ASN1 schema of LDSSecurityObject. Described by ICAO 9303 p.10 section 4.6.2 */

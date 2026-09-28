@@ -1,12 +1,11 @@
 import { test, expect } from "bun:test";
-import { join } from "path";
-import { COM, Utils } from "../src/index.js";
-
-const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
+import { COM } from "../src/index.js";
+import { getDGContent } from "./_test_utils.test.js";
+import { bytesToHex } from "@noble/hashes/utils.js";
 
 test("COM", async () => {
     const data = COM.load(await getDGContent("EF_COM.bin"));
     expect(data.ldsVersion).toBe("0107");
     expect(data.unicodeVersion).toBe("040000");
-    expect(Utils.bytesToHex(data.tags)).toBe("6175636e");
+    expect(bytesToHex(data.tags)).toBe("6175636e");
 });

@@ -6,7 +6,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG15 (Active authentication info)
-*/
+ */
 export class DG15 {
     /**
      * Get active authentication public key

@@ -14,7 +14,7 @@ export class VersionBlock {
 /** Wrapper for unused fields */
 export class GenericBlock {
     @AsnProp({ type: AsnPropTypes.Any })
-    raw: Uint8Array = new Uint8Array();
+    raw: ArrayBuffer = new ArrayBuffer();
 }
 
 /** Date and time block */

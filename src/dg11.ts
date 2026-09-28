@@ -3,35 +3,35 @@ import { TAGS } from "./consts/enums.js";
 import type { DecodedAdditionalPersonalData } from "./consts/interfaces.js";
 import { validateDataGroupTag, bytesToAscii } from "./utils.js";
 
+const FULL_NAME_TAG = 0x5F0E,
+    OTHER_NAME_TAG = 0x5F0F,
+    OTHER_NAME_ARRAY_TAG = 0xA0,
+    PERSONAL_NUMBER_TAG = 0x5F10,
+    // In 'CCYYMMDD' format.
+    FULL_DATE_OF_BIRTH_TAG = 0x5F2B,
+    // Fields separated by '<'
+    PLACE_OF_BIRTH_TAG = 0x5F11,
+    // Fields separated by '<'
+    PERMANENT_ADDRESS_TAG = 0x5F42,
+    TELEPHONE_TAG = 0x5F12,
+    PROFESSION_TAG = 0x5F13,
+    TITLE_TAG = 0x5F14,
+    PERSONAL_SUMMARY_TAG = 0x5F15,
+    // Compressed image per ISO/IEC 10918
+    PROOF_OF_CITIZENSHIP_TAG = 0x5F16,
+    // Separated by '<'
+    OTHER_VALID_TD_NUMBERS_TAG = 0x5F17,
+    CUSTODY_INFORMATION_TAG = 0x5F18;
+
 /**
  * Class for working with DG11 (Additional personal data)
-*/
+ */
 export class DG11 {
     /**
      * Get additional personal data
      * @param data Data of EF.DG11 file
      */
     static load(data: string | Uint8Array): DecodedAdditionalPersonalData {
-        const FULL_NAME_TAG = 0x5F0E;
-        const OTHER_NAME_TAG = 0x5F0F;
-        const OTHER_NAME_ARRAY_TAG = 0xA0;
-        const PERSONAL_NUMBER_TAG = 0x5F10;
-        // In 'CCYYMMDD' format.
-        const FULL_DATE_OF_BIRTH_TAG = 0x5F2B;
-        // Fields separated by '<'
-        const PLACE_OF_BIRTH_TAG = 0x5F11;
-        // Fields separated by '<'
-        const PERMANENT_ADDRESS_TAG = 0x5F42;
-        const TELEPHONE_TAG = 0x5F12;
-        const PROFESSION_TAG = 0x5F13;
-        const TITLE_TAG = 0x5F14;
-        const PERSONAL_SUMMARY_TAG = 0x5F15;
-        // Compressed image per ISO/IEC 10918
-        const PROOF_OF_CITIZENSHIP_TAG = 0x5F16;
-        // Separated by '<'
-        const OTHER_VALID_TD_NUMBERS_TAG = 0x5F17;
-        const CUSTODY_INFORMATION_TAG = 0x5F18;
-
         let nameOfHolder: string = "",
             otherNames: string[] = [],
             personalNumber: string = "",
@@ -48,7 +48,6 @@ export class DG11 {
 
         const tlv = TLV.parse(data);
         validateDataGroupTag(tlv, TAGS.DG11);
-        
         for(const i of tlv.childs) {
             switch(parseInt(i.tag, 16)) {
                 case FULL_NAME_TAG:
@@ -58,9 +57,9 @@ export class DG11 {
                     personalNumber = bytesToAscii(i.byteValue);
                     break;
                 case OTHER_NAME_ARRAY_TAG:
-                    for(const j of i.childs) {
-                        if(parseInt(j.tag, 16) == OTHER_NAME_TAG) otherNames.push(bytesToAscii(j.byteValue));
-                    }
+                    for(const j of i.childs)
+                        if(parseInt(j.tag, 16) == OTHER_NAME_TAG)
+                            otherNames.push(bytesToAscii(j.byteValue));
                     break;
                 case FULL_DATE_OF_BIRTH_TAG:
                     fullDateOfBirth = parseInt(bytesToAscii(i.byteValue));

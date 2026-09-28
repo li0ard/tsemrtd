@@ -4,7 +4,7 @@ import { validateDataGroupTag, bytesToAscii } from "./utils.js";
 
 /**
  * Class for working with DG1 (MRZ)
-*/
+ */
 export class DG1 {
     /**
      * Get MRZ

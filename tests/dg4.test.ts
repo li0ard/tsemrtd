@@ -1,16 +1,14 @@
 import { test, expect } from "bun:test";
-import { join } from "path";
 import { DG4, Interfaces } from "../src/index.js";
-
-const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
+import { getDGContent } from "./_test_utils.test.js";
 
 test("DG4", async () => {
     const data = DG4.load(await getDGContent("EF_DG4.bin")) as Interfaces.ISO19794DecodedIris[];
     expect(data[0].sbh.type).toStrictEqual(16);
     expect(data[0].sbh.subtype).toStrictEqual(1);
-    expect(data[0].sbh.version).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,9]));
+    expect(new Uint8Array(data[0].sbh.version!)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,9]));
     expect(data[0].lengthOfRecord).toBe(6445);
     expect(data[0].captureDeviceId).toBe(0);
     expect(data[0].imagePropertiesBits).toBe(0);
@@ -31,9 +29,9 @@ test("DG4", async () => {
 
     expect(data[1].sbh.type).toStrictEqual(16);
     expect(data[1].sbh.subtype).toStrictEqual(2);
-    expect(data[1].sbh.version).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatType).toStrictEqual(new Uint8Array([0,9]));
+    expect(new Uint8Array(data[1].sbh.version!)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatType)).toStrictEqual(new Uint8Array([0,9]));
     expect(data[1].lengthOfRecord).toBe(6777);
     expect(data[1].captureDeviceId).toBe(0);
     expect(data[1].imagePropertiesBits).toBe(0);
@@ -58,9 +56,9 @@ test("DG4 (ISO/IEC 39794-6)", async () => {
 
     expect(data[0].sbh.type).toStrictEqual(16);
     expect(data[0].sbh.subtype).toStrictEqual(1);
-    expect(data[0].sbh.version).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,9]));
+    expect(new Uint8Array(data[0].sbh.version!)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,9]));
     expect(data[0].biometricSubtype).toBe(1);
     expect(data[0].imageType).toBe(2);
     expect(data[0].depth).toBe(8);
@@ -70,9 +68,9 @@ test("DG4 (ISO/IEC 39794-6)", async () => {
 
     expect(data[1].sbh.type).toStrictEqual(16);
     expect(data[1].sbh.subtype).toStrictEqual(2);
-    expect(data[1].sbh.version).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatType).toStrictEqual(new Uint8Array([0,9]));
+    expect(new Uint8Array(data[1].sbh.version!)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatType)).toStrictEqual(new Uint8Array([0,9]));
     expect(data[1].biometricSubtype).toBe(1);
     expect(data[1].imageType).toBe(2);
     expect(data[1].depth).toBe(8);

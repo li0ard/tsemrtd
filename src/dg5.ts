@@ -4,7 +4,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG5 (Displayed image)
-*/
+ */
 export class DG5 {
     /**
      * Get displayed image

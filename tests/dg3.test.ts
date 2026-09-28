@@ -1,15 +1,13 @@
 import { test, expect } from "bun:test";
-import { join } from "path";
 import { DG3, Interfaces } from "../src/index.js";
-
-const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
+import { getDGContent } from "./_test_utils.test.js";
 
 test("DG3", async () => {
     const data = DG3.load(await getDGContent("EF_DG3.bin")) as Interfaces.ISO19794DecodedFingerprint[];
     expect(data[0].sbh.type).toStrictEqual(8);
     expect(data[0].sbh.subtype).toStrictEqual(9);
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,7]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,7]));
     expect(data[0].lengthOfRecord).toBe(16435);
     expect(data[0].captureDeviceId).toBe(0);
     expect(data[0].acquisitionLevel).toBe(31);
@@ -36,8 +34,8 @@ test("DG3", async () => {
 
     expect(data[1].sbh.type).toStrictEqual(8);
     expect(data[1].sbh.subtype).toStrictEqual(10);
-    expect(data[1].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatType).toStrictEqual(new Uint8Array([0,7]));
+    expect(new Uint8Array(data[1].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatType)).toStrictEqual(new Uint8Array([0,7]));
     expect(data[1].lengthOfRecord).toBe(15977);
     expect(data[1].captureDeviceId).toBe(0);
     expect(data[1].acquisitionLevel).toBe(31);
@@ -66,8 +64,8 @@ test("DG3 (ISO/IEC 39794-4)", async () => {
     const data = DG3.load(await getDGContent("EF_DG3_ISO39794_full.bin")) as Interfaces.ISO39794DecodedFingerprint[];
     expect(data[0].sbh.type).toStrictEqual(8);
     expect(data[0].sbh.subtype).toStrictEqual(9);
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,7]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,7]));
 
     expect(data[0].fingerImageType).toBe(1);
     expect(data[0].fingerType).toBe(2);
@@ -78,8 +76,8 @@ test("DG3 (ISO/IEC 39794-4)", async () => {
 
     expect(data[1].sbh.type).toStrictEqual(8);
     expect(data[1].sbh.subtype).toStrictEqual(10);
-    expect(data[1].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[1].sbh.formatType).toStrictEqual(new Uint8Array([0,7]));
+    expect(new Uint8Array(data[1].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[1].sbh.formatType)).toStrictEqual(new Uint8Array([0,7]));
     expect(data[1].fingerImageType).toBe(1);
     expect(data[1].fingerType).toBe(2);
     expect(data[1].imageType).toBe(4);

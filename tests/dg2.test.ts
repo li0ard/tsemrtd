@@ -1,15 +1,13 @@
 import { test, expect } from "bun:test";
-import { join } from "path";
 import { DG2, Interfaces } from "../src/index.js";
-
-const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
+import { getDGContent } from "./_test_utils.test.js";
 
 test("DG2", async () => {
     const data = DG2.load(await getDGContent("EF_DG2.bin")) as Interfaces.ISO19794DecodedImage[];
     expect(data[0].sbh.type).toStrictEqual(2);
     expect(data[0].sbh.subtype).toStrictEqual(0);
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,8]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,8]));
     expect(data[0].lengthOfRecord).toBe(15045);
     expect(data[0].numberOfFacialImages).toBe(1);
     expect(data[0].facialRecordDataLength).toBe(15031);
@@ -38,8 +36,8 @@ test("DG2 (ISO/IEC 39794-5)", async () => {
     const data = DG2.load(await getDGContent("EF_DG2_ISO39794_full.bin")) as Interfaces.ISO39794DecodedImage[];
     expect(data[0].sbh.type).toStrictEqual(2);
     expect(data[0].sbh.subtype).toStrictEqual(0);
-    expect(data[0].sbh.formatOwner).toStrictEqual(new Uint8Array([1,1]));
-    expect(data[0].sbh.formatType).toStrictEqual(new Uint8Array([0,42]));
+    expect(new Uint8Array(data[0].sbh.formatOwner)).toStrictEqual(new Uint8Array([1,1]));
+    expect(new Uint8Array(data[0].sbh.formatType)).toStrictEqual(new Uint8Array([0,42]));
 
     expect(
         new Bun.CryptoHasher("sha256").update(data[0].imageData).digest().toString("hex")

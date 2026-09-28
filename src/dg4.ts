@@ -8,7 +8,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG4 (Iris)
-*/
+ */
 export class DG4 {
     /**
      * Get image of eye iris

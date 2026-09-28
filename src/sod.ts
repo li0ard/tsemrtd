@@ -8,7 +8,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with SOD (Security object)
-*/
+ */
 export class SOD {
     /**
      * Get version, algorithm, data groups hashes

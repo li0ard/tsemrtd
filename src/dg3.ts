@@ -8,7 +8,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG3 (Fingerprint)
-*/
+ */
 export class DG3 {
     /**
      * Get image of fingerprint and meta info

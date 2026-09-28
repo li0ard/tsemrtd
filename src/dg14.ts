@@ -5,6 +5,10 @@ import { TAGS } from "./consts/enums.js";
 import { TerminalAuthentication, ChipAuthInfo, ChipAuthPublicKey, ChipAuthDomainParameters } from "./consts/oids.js";
 import { validateDataGroupTag } from "./utils.js";
 
+const caI_oids: string[] = Object.values(ChipAuthInfo),
+    caPk_oids: string[] = Object.values(ChipAuthPublicKey),
+    caDp_oids: string[] = Object.values(ChipAuthDomainParameters);
+
 /**
  * Class for working with DG14 (EAC/PACE authentication info)
 */
@@ -20,10 +24,14 @@ export class DG14 {
         const infos = AsnConvert.parse(tlv.byteValue, SecurityInfos);
         const set = new SecurityInfos();
         for(const i of infos) {
-            if(i.protocol == TerminalAuthentication) set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo));
-            else if((Object.values(ChipAuthInfo) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo));
-            else if((Object.values(ChipAuthPublicKey) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo));
-            else if((Object.values(ChipAuthDomainParameters) as string[]).includes(i.protocol)) set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo));
+            if(i.protocol == TerminalAuthentication)
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), TerminalAuthenticationInfo));
+            else if(caI_oids.includes(i.protocol))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationInfo));
+            else if(caPk_oids.includes(i.protocol)) 
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationPublicKeyInfo));
+            else if(caDp_oids.includes(i.protocol))
+                set.push(AsnConvert.parse(AsnConvert.serialize(i), ChipAuthenticationDomainParameterInfo));
             else set.push(i);
         }
 

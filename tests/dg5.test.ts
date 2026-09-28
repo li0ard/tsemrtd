@@ -1,8 +1,6 @@
 import { test, expect } from "bun:test";
-import { join } from "path";
 import { DG5 } from "../src/index.js";
-
-const getDGContent = async (name: string): Promise<Uint8Array> => await Bun.file(join(import.meta.dir, "dgs", name)).bytes();
+import { getDGContent } from "./_test_utils.test.js";
 
 test("DG5", async () => {
     const data = DG5.load(await getDGContent("EF_DG5.bin"));

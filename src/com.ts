@@ -5,7 +5,7 @@ import { validateDataGroupTag, bytesToAscii } from "./utils.js";
 
 /**
  * Class for working with COM (Manifest)
-*/
+ */
 export class COM {
     /**
      * Get LDS and Unicode versions and data groups tags

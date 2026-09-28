@@ -6,28 +6,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-
+    uses: li0ard/workflow/.github/workflows/npm.yml@011b6c3387ee28ccb17fc6b849a4d117ab12472b
     permissions:
       contents: read
       id-token: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun i
-      
-      - name: Build package
-        run: bun run build
-      
-      - name: Publish package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --provenance --access public
-      - name: Cleanup
-        run: |
-          rm -f .npmrc

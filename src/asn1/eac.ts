@@ -20,11 +20,11 @@ export class SecurityInfo {
 export class FileID {
     /** File ID */
     @AsnProp({ type: AsnPropTypes.OctetString })
-    fid: Uint8Array = new Uint8Array();
+    fid: ArrayBuffer = new ArrayBuffer();
 
     /** Short file ID */
     @AsnProp({ type: AsnPropTypes.OctetString, optional: true })
-    sfid?: Uint8Array;
+    sfid?: ArrayBuffer;
 }
 
 /** Information on an implementation of Terminal Authentication. Described by BSI TR-03110, section A.1.1.3 */

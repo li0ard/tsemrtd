@@ -21,7 +21,7 @@ class ImageInformation2DBlock {
 
 class ImageRepresentation2DBlock {
     @AsnProp({ type: AsnPropTypes.OctetString, context: 0, implicit: true })
-    representationData2D = new Uint8Array();
+    representationData2D = new ArrayBuffer();
 
     @AsnProp({ type: ImageInformation2DBlock, context: 1, implicit: true })
     imageInformation2DBlock = new ImageInformation2DBlock();
@@ -79,14 +79,15 @@ export class ISO39794FaceDecoder {
     /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
         const iso7816Blob = firstBlock.childs[0];
-        if(parseInt(iso7816Blob.tag, 16) != ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE) throw new Error(`Invalid object tag "0x${iso7816Blob.tag}", expected 0x${ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE.toString(16)}`);
+        if(parseInt(iso7816Blob.tag, 16) != ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE)
+            throw new Error(`Invalid object tag "0x${iso7816Blob.tag}", expected 0x${ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE.toString(16)}`);
         
         const encodedFaceImage = iso7816Blob.childs[0];
-        if(parseInt(encodedFaceImage.tag, 16) != 0x65) throw new Error(`Invalid ISO/IEC 39794-5 tag "0x${encodedFaceImage.tag}", expected 0x65`);
+        if(parseInt(encodedFaceImage.tag, 16) != 0x65)
+            throw new Error(`Invalid ISO/IEC 39794-5 tag "0x${encodedFaceImage.tag}", expected 0x65`);
 
         // TODO: Fix this when APPLICATION type will be supported in "@peculiar/asn1-schema"
         const decoded = AsnConvert.parse(new TLV("30", encodedFaceImage.byteValue).toBytes(), FaceImageDataBlock);
-
         for(const i of decoded.representationBlocks) {
             const base = i.imageRepresentation.base;
             if(!base || !base.imageRepresentation2DBlock) continue;

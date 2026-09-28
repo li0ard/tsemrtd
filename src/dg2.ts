@@ -8,7 +8,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG2 (Face)
-*/
+ */
 export class DG2 {
     /**
      * Get image of face and meta info

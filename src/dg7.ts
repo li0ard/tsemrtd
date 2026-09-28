@@ -4,7 +4,7 @@ import { validateDataGroupTag } from "./utils.js";
 
 /**
  * Class for working with DG7 (Signature)
-*/
+ */
 export class DG7 {
     /**
      * Get image of signature

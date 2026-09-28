@@ -53,7 +53,7 @@ class RepresentationBlock {
     captureDateTimeBlock = new CaptureDateTimeBlock();
 
     @AsnProp({ type: AsnPropTypes.OctetString, context: 8, implicit: true })
-    irisImageData = new Uint8Array();
+    irisImageData = new ArrayBuffer();
 }
 
 /** Iris representation blocks */
@@ -79,14 +79,15 @@ export class ISO39794IrisDecoder {
     /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
         const iso7816Blob = firstBlock.childs[0];
-        if(parseInt(iso7816Blob.tag, 16) != ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE) throw new Error(`Invalid object tag "0x${iso7816Blob.tag}", expected 0x${ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE.toString(16)}`);
+        if(parseInt(iso7816Blob.tag, 16) != ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE)
+            throw new Error(`Invalid object tag "0x${iso7816Blob.tag}", expected 0x${ISO7816Tags.BIOMETRIC_HEADER_TEMPLATE_BASE.toString(16)}`);
         
         const encodedFaceImage = iso7816Blob.childs[0];
-        if(parseInt(encodedFaceImage.tag, 16) != 0x66) throw new Error(`Invalid ISO/IEC 39794-6 tag "0x${encodedFaceImage.tag}", expected 0x66`);
+        if(parseInt(encodedFaceImage.tag, 16) != 0x66)
+            throw new Error(`Invalid ISO/IEC 39794-6 tag "0x${encodedFaceImage.tag}", expected 0x66`);
 
         // TODO: Fix this when APPLICATION type will be supported in "@peculiar/asn1-schema"
         const decoded = AsnConvert.parse(new TLV("30", encodedFaceImage.byteValue).toBytes(), IrisImageDataBlock);
-
         for(const i of decoded.representationBlocks) {
             if(!i.imageDataFormat.code) continue;
 
