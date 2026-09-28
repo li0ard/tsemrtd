@@ -5,6 +5,7 @@ import { decodeCbeff } from "./cbeff/index.js";
 import { TAGS } from "./consts/enums.js";
 import type { DecodedFingerprint } from "./consts/interfaces.js";
 import { validateDataGroupTag } from "./utils.js";
+import type { TArg } from "@noble/hashes/utils.js";
 
 /**
  * Class for working with DG3 (Fingerprint)
@@ -14,7 +15,7 @@ export class DG3 {
      * Get image of fingerprint and meta info
      * @param data Data of EF.DG3 file
      */
-    static load(data: string | Uint8Array): DecodedFingerprint[] {
+    static load(data: string | TArg<Uint8Array>): DecodedFingerprint[] {
         const tlv = TLV.parse(data);
         validateDataGroupTag(tlv, TAGS.DG3);
 

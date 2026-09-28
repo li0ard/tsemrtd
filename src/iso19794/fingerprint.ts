@@ -1,11 +1,12 @@
 import { TLV } from "@li0ard/tinytlv";
 import { bytesToNumberBE } from "../utils.js";
+import { createView } from "@noble/hashes/utils.js";
 
 /** ISO/IEC 19794-4 Fingerprint image decoder */
 export class ISO19794FingerprintDecoder {
     /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
-        const data = new DataView(firstBlock.byteValue.buffer, firstBlock.byteValue.byteOffset, firstBlock.byteValue.byteLength);
+        const data = createView(firstBlock.byteValue);
         let offset = 0;
 
         if(data.getUint32(offset) != 0x46495200) throw new Error("Biometric data block is invalid");
@@ -74,7 +75,7 @@ export class ISO19794FingerprintDecoder {
         const imageHeight = data.getUint16(offset);
         offset += 2;
 
-        const reserved2 = data.getUint8(offset);
+        //const reserved2 = data.getUint8(offset);
         offset += 1;
         
         const imageEnd = fingerprintRecordLength - 14;

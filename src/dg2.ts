@@ -5,6 +5,7 @@ import { decodeCbeff } from "./cbeff/index.js";
 import { TAGS } from "./consts/enums.js";
 import type { DecodedImage } from "./consts/interfaces.js";
 import { validateDataGroupTag } from "./utils.js";
+import type { TArg } from "@noble/hashes/utils.js";
 
 /**
  * Class for working with DG2 (Face)
@@ -14,7 +15,7 @@ export class DG2 {
      * Get image of face and meta info
      * @param data Data of EF.DG2 file
      */
-    static load(data: string | Uint8Array): DecodedImage[] {
+    static load(data: string | TArg<Uint8Array>): DecodedImage[] {
         const tlv = TLV.parse(data);
         validateDataGroupTag(tlv, TAGS.DG2);
 

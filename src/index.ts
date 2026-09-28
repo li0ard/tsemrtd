@@ -10,7 +10,6 @@ export { DG12 } from "./dg12.js";
 export { DG14 } from "./dg14.js";
 export { DG15 } from "./dg15.js";
 export { SOD } from "./sod.js";
-export { PKD } from "./pkd.js";
 export * as Enums from "./consts/enums.js";
 export * as Interfaces from "./consts/interfaces.js";
 export * as Oids from "./consts/oids.js";

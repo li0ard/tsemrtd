@@ -3,6 +3,7 @@ import type { CertificateSet, SignerInfos } from "@peculiar/asn1-cms";
 import type { LDSObject } from "../asn1/sod.js";
 import type { SBH } from "../asn1/index.js";
 import type { TLV } from "@li0ard/tinytlv";
+import type { TRet } from "@noble/hashes/utils.js";
 
 /** Template for BioAPI decoded datagroup */
 interface AbstractBioTemplate {
@@ -18,8 +19,6 @@ interface AbstractBioTemplate {
     imageHeight: number;
     /** Image quality */
     quality: number;
-    /** Raw image data */
-    imageData: Uint8Array;
 }
 
 /** Wrapper for Biometric data block (BDB) decoder */
@@ -35,7 +34,7 @@ export interface DecodedCom {
     /** Version of Unicode table */
     unicodeVersion: string;
     /** Datagroups defined in MRTD */
-    tags: Uint8Array;
+    tags: TRet<Uint8Array>;
 }
 
 /** Decoded EF.DG2 datagroup (ISO/IEC 39794-5 or ISO/IEC 19794-5) */
@@ -48,7 +47,7 @@ export interface ISO39794DecodedImage {
     /** Image Data Type */
     imageType: ISO39794ImageType;
     /** Raw image data */
-    imageData: Uint8Array;
+    imageData: TRet<ArrayBuffer>;
 }
 
 /** Decoded EF.DG2 datagroup (ISO/IEC 19794-5) */
@@ -83,6 +82,8 @@ export interface ISO19794DecodedImage extends AbstractBioTemplate {
     deviceType: number;
     /** Image Data Type */
     imageType: ISO19794ImageType;
+    /** Raw image data */
+    imageData: TRet<Uint8Array>;
 }
 
 /** Decoded EF.DG3 datagroup (ISO/IEC 39794-4 or ISO/IEC 19794-4) */
@@ -93,7 +94,7 @@ export interface ISO39794DecodedFingerprint {
     /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
     sbh: SBH;
     /** Raw image data */
-    imageData: Uint8Array;
+    imageData: TRet<ArrayBuffer>;
     /** Type of fingerprint and palm image */
     fingerImageType: ISO39794FingerImageType;
     /** Name of finger/part of palm */
@@ -134,6 +135,8 @@ export interface ISO19794DecodedFingerprint extends AbstractBioTemplate {
     fingerType: ISO19794FingerType;
     /** Image Data Type */
     imageType: ISO19794FingerprintImageType;
+    /** Raw image data */
+    imageData: TRet<Uint8Array>;
 }
 
 /** Decoded EF.DG4 datagroup (ISO/IEC 39794-6 or ISO/IEC 19794-6) */
@@ -144,7 +147,7 @@ export interface ISO39794DecodedIris {
     /** Standart Biometric Header. Described by ICAO 9303 p.10 section 4.7.2.1*/
     sbh: SBH;
     /** Raw image data */
-    imageData: Uint8Array;
+    imageData: TRet<ArrayBuffer>;
     /** Image Data Type */
     imageType: ISO39794IrisImageFormat;
     /** Bit depth of the grayscale scale */
@@ -175,6 +178,8 @@ export interface ISO19794DecodedIris extends AbstractBioTemplate {
     rotationAngleUncertainty: number;
     /** Image Data Type */
     imageType: ISO19794IrisImageFormat;
+    /** Raw image data */
+    imageData: TRet<Uint8Array>;
 }
 
 /** Decoded EF.DG11 datagroup */
@@ -200,7 +205,7 @@ export interface DecodedAdditionalPersonalData {
     /** Personal resume */
     personalSummary: string;
     /** Proof of citizenship. Image described by ISO/IEC 10918 */
-    proofOfCitizenship: Uint8Array;
+    proofOfCitizenship: TRet<Uint8Array>;
     /** Numbers of other valid TDs */
     otherValidTDNumbers: string[];
     /**  Information about detention */
@@ -220,9 +225,9 @@ export interface DecodedAdditionalDocumentData {
     /** Tax and exit requirements */
     taxAndExitReqs: string;
     /** Image of front of document. Image described by ISO/IEC 10918 */
-    imageOfFront: Uint8Array;
+    imageOfFront: TRet<Uint8Array>;
     /** Image of rear of document. Image described by ISO/IEC 10918 */
-    imageOfRear: Uint8Array;
+    imageOfRear: TRet<Uint8Array>;
     /** Date and time of document personalization (YYYYMMDDHHMMSS) */
     dateOfPersonalization: number;
     /** Serial number of personalization system */

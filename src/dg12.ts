@@ -2,7 +2,7 @@ import { TLV } from "@li0ard/tinytlv";
 import { TAGS } from "./consts/enums.js";
 import type { DecodedAdditionalDocumentData } from "./consts/interfaces.js";
 import { validateDataGroupTag, bytesToAscii } from "./utils.js";
-import { bytesToHex } from "@noble/hashes/utils.js";
+import { bytesToHex, type TRet } from "@noble/hashes/utils.js";
 
 const ISSUING_AUTHORITY_TAG = 0x5F19,
     // yyyymmdd
@@ -33,8 +33,8 @@ export class DG12 {
             namesOfOtherPersons: string[] = [],
             endorsements: string = "",
             taxAndExitReqs: string = "",
-            imageOfFront: Uint8Array = Uint8Array.from([]),
-            imageOfRear: Uint8Array = Uint8Array.from([]),
+            imageOfFront: TRet<Uint8Array> = Uint8Array.from([]),
+            imageOfRear: TRet<Uint8Array> = Uint8Array.from([]),
             dateOfPersonalization: number = 0,
             personalizationNumber: string = "";
 
@@ -59,10 +59,10 @@ export class DG12 {
                     taxAndExitReqs = bytesToAscii(i.byteValue);
                     break;
                 case IMAGE_OF_FRONT_TAG:
-                    imageOfFront = i.byteValue;
+                    imageOfFront = i.byteValue as TRet<Uint8Array>;
                     break;
                 case IMAGE_OF_REAR_TAG:
-                    imageOfRear = i.byteValue;
+                    imageOfRear = i.byteValue as TRet<Uint8Array>;
                     break;
                 case DATE_AND_TIME_OF_PERSONALIZATION:
                     dateOfPersonalization = parseInt(bytesToHex(i.byteValue));

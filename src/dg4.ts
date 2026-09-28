@@ -5,6 +5,7 @@ import { decodeCbeff } from "./cbeff/index.js";
 import { TAGS } from "./consts/enums.js";
 import type { DecodedIris } from "./consts/interfaces.js";
 import { validateDataGroupTag } from "./utils.js";
+import type { TArg } from "@noble/hashes/utils.js";
 
 /**
  * Class for working with DG4 (Iris)
@@ -14,7 +15,7 @@ export class DG4 {
      * Get image of eye iris
      * @param data Data of EF.DG4 file
      */
-    static load(data: string | Uint8Array): DecodedIris[] {
+    static load(data: string | TArg<Uint8Array>): DecodedIris[] {
         const tlv = TLV.parse(data);
         validateDataGroupTag(tlv, TAGS.DG4);
 

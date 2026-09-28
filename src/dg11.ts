@@ -2,6 +2,7 @@ import { TLV } from "@li0ard/tinytlv";
 import { TAGS } from "./consts/enums.js";
 import type { DecodedAdditionalPersonalData } from "./consts/interfaces.js";
 import { validateDataGroupTag, bytesToAscii } from "./utils.js";
+import type { TArg, TRet } from "@noble/hashes/utils.js";
 
 const FULL_NAME_TAG = 0x5F0E,
     OTHER_NAME_TAG = 0x5F0F,
@@ -31,7 +32,7 @@ export class DG11 {
      * Get additional personal data
      * @param data Data of EF.DG11 file
      */
-    static load(data: string | Uint8Array): DecodedAdditionalPersonalData {
+    static load(data: string | TArg<Uint8Array>): DecodedAdditionalPersonalData {
         let nameOfHolder: string = "",
             otherNames: string[] = [],
             personalNumber: string = "",
@@ -42,7 +43,7 @@ export class DG11 {
             profession: string = "",
             title: string = "",
             personalSummary: string = "",
-            proofOfCitizenship: Uint8Array = Uint8Array.from([]),
+            proofOfCitizenship: TRet<Uint8Array> = Uint8Array.from([]),
             otherValidTDNumbers: string[] = [],
             custodyInformation: string = "";
 
@@ -83,7 +84,7 @@ export class DG11 {
                     personalSummary = bytesToAscii(i.byteValue);
                     break;
                 case PROOF_OF_CITIZENSHIP_TAG:
-                    proofOfCitizenship = i.byteValue;
+                    proofOfCitizenship = i.byteValue as TRet<Uint8Array>;
                     break;
                 case OTHER_VALID_TD_NUMBERS_TAG:
                     otherValidTDNumbers = bytesToAscii(i.byteValue).split("<");

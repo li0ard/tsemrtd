@@ -4,6 +4,7 @@ import { ChipAuthenticationDomainParameterInfo, ChipAuthenticationInfo, ChipAuth
 import { TAGS } from "./consts/enums.js";
 import { TerminalAuthentication, ChipAuthInfo, ChipAuthPublicKey, ChipAuthDomainParameters } from "./consts/oids.js";
 import { validateDataGroupTag } from "./utils.js";
+import type { TArg } from "@noble/hashes/utils.js";
 
 const caI_oids: string[] = Object.values(ChipAuthInfo),
     caPk_oids: string[] = Object.values(ChipAuthPublicKey),
@@ -17,7 +18,7 @@ export class DG14 {
      * Get EAC/PACE security informations
      * @param data Data of EF.DG14 file
      */
-    static load(data: string | Uint8Array): SecurityInfos {
+    static load(data: string | TArg<Uint8Array>): SecurityInfos {
         const tlv = TLV.parse(data);
         validateDataGroupTag(tlv, TAGS.DG14);
 

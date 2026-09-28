@@ -1,10 +1,11 @@
 import { TLV } from "@li0ard/tinytlv";
+import { createView } from "@noble/hashes/utils.js";
 
 /** ISO/IEC 19794-5 Face image decoder */
 export class ISO19794FaceDecoder {
     /** Decode biometric data block (BDB) */
     static load(firstBlock: TLV) {
-        const data = new DataView(firstBlock.byteValue.buffer, firstBlock.byteValue.byteOffset, firstBlock.byteValue.byteLength);
+        const data = createView(firstBlock.byteValue);
         let offset = 0;
         
         if(data.getUint32(offset) != 0x46414300) throw new Error("Biometric data block is invalid");
